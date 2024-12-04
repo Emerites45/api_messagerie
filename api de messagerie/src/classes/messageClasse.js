@@ -1,12 +1,15 @@
 
 class  Message {
 
-    constructor(chatid,contenu,etat,id_expediteur,est_activer){
+    constructor(chatid,contenu,lu_par,id_expediteur,est_epingle,est_activer,supprimer_pour){
          this.chatid = chatid;
          this.contenu = contenu;
-         this.etat = etat;
+         this.lu_par = lu_par;
+       
+         this.est_epingle = est_epingle;
          this.est_activer= est_activer
          this.id_expediteur = id_expediteur;
+         this.supprimer_pour= supprimer_pour;
     }
 
     envoyer_message(){}
@@ -19,7 +22,7 @@ class  Message {
 
     supprimer_message(){}
 
-    liker(){}
+   
 
     epingler(){}
 

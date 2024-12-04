@@ -3,12 +3,12 @@ const Chat_Individuel= require("../classes/chat_individuel")
 const Chat_Grouper= require("../classes/chat_grouper")
 
 
-function chatFactory(valeur_favorite,est_archive,est_activer,membres,type,nom,description,administrateurs) {
+function chatFactory(valeur_favorite,est_archive,est_activer,membres,type,nom,description,administrateurs,nb_message_epingler) {
     switch (type) {
         case 'individuel':
             return new Chat_Individuel(valeur_favorite,est_archive,est_activer,membres,"individuel");
         case 'groupe':
-            return new Chat_Grouper(valeur_favorite,est_archive,est_activer,membres,nom,description,administrateurs,"groupe");
+            return new Chat_Grouper(valeur_favorite,est_archive,est_activer,membres,nom,description,administrateurs,nb_message_epingler);
         
         default:
             throw new Error('type de groupe non reconnue');
@@ -31,7 +31,7 @@ const createchat = async(req,res)  => {
 
    // creation du chat 
 
-        chat = chatFactory(false,false,true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur);
+        chat = chatFactory(false,false,true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
 
          if( req.body.type=="individuel"){
            response= await chat.cree_chat(chat);
@@ -86,7 +86,7 @@ const updatechat =  async(req,res)  => {
     const {chatID} = req.params
     let response
     try{
-        chat = chatFactory(req.body.valeur_favorite,req.body.est_archive,req.body.est_activer,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur);
+        chat = chatFactory(req.body.valeur_favorite,req.body.est_archive,req.body.est_activer,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,req.body.nb_message_epingler);
        
         console.log("le chat id: "+chatID)
         if( req.body.type=="individuel"){

@@ -1,7 +1,7 @@
 const Chat = require("./chatClasse")
 const chatModel= require("../models/chat")
 const utilisateurModel= require("../models/Users")
-let Chat_dto = require("../dto/Chat_Dto")
+let Chat_dto = require("../dto/chat_Dto")
 
 
 

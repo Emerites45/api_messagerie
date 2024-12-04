@@ -6,11 +6,12 @@ let Chat_grouperdto = require("../dto/chat_grouper_Dto")
 
 class Chat_Grouper extends Chat{
 
-    constructor(valeur_favorite = false,est_archive= false,est_activer= true,membres=[],nom="",description="",administrateur=[]){
+    constructor(valeur_favorite = false,est_archive= false,est_activer= true,membres=[],nom="",description="",administrateur=[],nb_message_epingler){
       super(valeur_favorite,est_archive,est_activer,membres,"groupe")
       this.description=description
       this.administrateur= administrateur
       this.nom= nom
+      this.nb_message_epingler = nb_message_epingler
    }
 
    async cree_chat(chat){
@@ -25,7 +26,7 @@ class Chat_Grouper extends Chat{
       console.log("on a chat grropuer :" + liste_chats.length);
    
       for (const element of chats) {
-              const chat = new Chat_grouperdto(element.id, element.valeur_favorite, element.est_archive,element.est_activer,element.membres,element.nom,element.description,element.administrateur,element.createAt);
+              const chat = new Chat_grouperdto(element.id, element.valeur_favorite, element.est_archive,element.est_activer,element.membres,element.nom,element.description,element.administrateur,element.nb_message_epingler,element.createAt);
               liste_chats.push(chat);
               console.log("on a chat grropuer :" + liste_chats.length);
           } 

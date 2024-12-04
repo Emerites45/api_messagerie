@@ -7,6 +7,7 @@ const chat_grouper_Schema = new mongoose.Schema({
   est_archive: { type: Boolean, default: false },
   nom:String,
   description: String,
+  nb_message_epingler: Number,
   est_activer: { type: Boolean, default: false },
  
  

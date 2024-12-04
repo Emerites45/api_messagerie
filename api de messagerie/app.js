@@ -4,6 +4,32 @@ const server = require('http').createServer(app)
 const chatroute= require("./src/routes/chatroutes")
 const  messagesroute =require("./src/routes/messagesroutes") 
 const  utilisateurroute =require("./src/routes/utilisateurroutes") 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0', // Version d'OpenAPI
+    info: {
+      title: 'Mon API',
+      version: '1.0.0',
+      description: 'Documentation de mon API',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000', // URL de votre API
+      },
+    ],
+  },
+  apis: ['./src/routes/*.js'], // Chemin vers les fichiers contenant les commentaires Swagger
+};
+
+// Initialisation de swaggerJSDoc
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+// Middleware pour servir la documentation Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 
 const io = require('socket.io')(server, {
   cors: {
@@ -77,98 +103,6 @@ io.on('connection', (socket) => {
   });
 });
 
-/*
-let utilisateur_connecter= [];
-
-io.on('connection', (socket) => {
-  console.log('Un utilisateur est connecté');
-
-  // Propriété pour stocker le groupe de l'utilisateur
-  socket.currentGroup = null;
-
-  socket.on('join group', (groupId) => {
-    // Définir le groupe actuel de l'utilisateur
-    socket.currentGroup = groupId;
-    socket.join(groupId);
-  });
-
-  socket.on('chat message', (msg) => {
-    if (socket.currentGroup) {
-      io.to(socket.currentGroup).emit('chat message', msg);
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Un utilisateur est déconnecté');
-  });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-});
-   
-/*
-io.on("ajout_nouveau_utilisateur",(socket)=>{
-  console.log("nouvelle connection",socket.id);
-
-  //liste des connections
-
-  socket.on("ajout nouvelle utilisateur",(id_utilisateur)=>{
-    
-    !utilisateur_connecter.some((utilisateur)=> utilisateur.id_utilisateur === id_utilisateur)&&
-    utilisateur.push({
-      id_utilisateur,
-      socketId: socket.id,
-    });
-    console.log("les utilisateurs sont ",utilisateur_connecter) 
-
-    io.emit("get utilisateur online ",utilisateur_connecter)
-  });
-
-//envoie de message
-
-socket.on("envoie de message",()=>{
-
-  const utilisateur =utilisateur_connecter.find((utilisateur = utilisateur.id_utilisateur === message.id_destinataire));
-
-  if(utilisateur){
-    io.to(utilisateur.socketId).emit("get message",message)
-  }
-
-});
-  
-//deconnexion d'un utilisateur
-  socket.on("deconnection",()=>{
-
-    utilisateur_connecter= utilisateur_connecter.filter((utilisateur)=> utilisateur.socketId !==socket.id)
-    io.emit("get utilisateur online ",utilisateur_connecter)
-
-  })
-
-
-})
-
-io.on('connection',(socket)=>{
-  console.log('connection effectuer')
-  
-    socket.on('message', (msg)=>{
-         console.log("le message: "+msg)
-
-         io.emit('message',msg);
-})
-})
-
-  */
-
-//ici, nous placerons nos futurs points de terminaison. 
-
-
-//point de terminaison  front end 
-/*
-require("./src/routes/liste_image_complet")(app)                // http://localhost:3000/api/liste/imagecomplet
-require("./src/routes/idadminstrateur")(app)                    // http://localhost:3000/api/administrateur
-require("./src/routes/verification_connexion")(app)            //http://localhost:3000/api/verifier  permet de verifier si l'utilisateur est connecter ou pas 
-require("./src/routes/liste_adresse_mail")(app)                //http://localhost:3000/api/liste/adresse_mail  pour avoir la liste des adresse mail 
-require("./src/routes/liste_titre_formation")(app)              //http://localhost:3000/api/liste/titre_repertoire  pour avoir la liste des titres des formations 
-require("./src/routes/envoie_demande_abonnement")(app)            
-//require('./src/routes/envoismaildiffusion')(app)
-*/
 app.get('/', (req, res) => {
 
   res.sendFile(`${__dirname}/public/index.html`)
@@ -185,3 +119,4 @@ app.use(({res})=>{
 server.listen(3000, () => {
   console.log('Listening on port 3000');
 });
+

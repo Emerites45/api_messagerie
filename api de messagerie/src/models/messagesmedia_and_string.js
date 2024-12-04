@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 
 const message_media_and_string_Schema = new mongoose.Schema({
   
-    etat: { type: Boolean, default: false},
+   
     chatid: String,
-    media: Array,
+    media: String,
     contenu: String, 
     id_expediteur: String,  
     est_activer: { type: Boolean, default: true },
+    est_epingle: { type: Boolean, default: false },
+    supprimer_pour:Array,
+    lu_par:Array, 
+
 
 },
 {
