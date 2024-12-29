@@ -2,7 +2,7 @@
 const Message = require("../classes/messageClasse")
 const message_media_Model= require ("../models/messages_media")
 let message_media_dto = require("../dto/message_media_Dto")
-
+const { ObjectId } = require('mongodb'); 
 class  MessageMedia extends Message {
 
     constructor(chatid="",media=[],lu_par=[],id_expediteur="",est_epingle=false,est_activer=true,supprimer_pour=[]){

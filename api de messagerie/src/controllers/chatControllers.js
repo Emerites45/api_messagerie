@@ -14,6 +14,9 @@ function chatFactory(valeur_favorite,est_archive,est_activer,membres,type,nom,de
             throw new Error('type de groupe non reconnue');
     }
 }
+
+
+
 //creation chat
 const createchat = async(req,res)  => {
 
@@ -31,17 +34,10 @@ const createchat = async(req,res)  => {
 
    // creation du chat 
 
-        chat = chatFactory(false,false,true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
+        chat = chatFactory([],[],true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
 
-         if( req.body.type=="individuel"){
-           response= await chat.cree_chat(chat);
-            }
-
-          if( req.body.type=="groupe"){  
-           response= await  chat.cree_chat(chat);
-           console.log("je suis le reponce: "+req.body.nom);
-        }
-
+         response= await  chat.cree_chat(chat);
+    
         res.status(200).json(response);
 
     }catch(error){
@@ -56,26 +52,30 @@ const createchat = async(req,res)  => {
 
 const finduserchats =  async(req,res)  => {
 
-   
+  
     const userID = req.params.userID
 
     try
-    {      
-       let chat_individuel = new Chat_Individuel();
-       let chat_grouper = new Chat_Grouper();
-
-     const liste_chat_individuel= await chat_individuel.liste_chat(userID);
+    {    
+ 
+      
+       console.log("j'arrive ici ") 
+   
+    const chat_individuel = new Chat_Individuel
+       const chat_grouper = new Chat_Grouper 
+       const liste_chat_individuel= await chat_individuel.liste_chat(userID);
       const liste_chat_grouper= await chat_grouper.liste_chat(userID) 
-      const liste_chat_archiver_individuel= await chat_individuel.liste_chat_archive(userID) 
-      const liste_chat_archiver_grouper= await chat_grouper.liste_chat_archive(userID) 
+      const liste_chat_archiver_individuel=  await chat_individuel.liste_chat_archive(userID) 
+      const liste_chat_archiver_grouper=    await chat_grouper.liste_chat_archive(userID) 
 
-
+         
 
     const response={liste_chat_individuel,liste_chat_grouper,liste_chat_archiver_individuel,liste_chat_archiver_grouper}
         res.status(200).json(response);
     }
     catch(error){
-
+        console.log(error)
+        res.status(500).json(error)
     }
 };
 
@@ -107,6 +107,45 @@ const updatechat =  async(req,res)  => {
       }
 }
 
+
+//archiver le chat 
+
+
+const archiver_chat =  async(req,res)  => {
+    const chatID = req.params.chatID
+    const userID= req.params.userID
+    const type = req.params.type
+
+    chat = chatFactory([],[],true,[],type,"","",[],0);
+
+    response= await chat.archiver_chat(chatID,userID) 
+    res.status(200).json(response);
+
+}
+
+
+//ajouter un chat parmis les favoris d'un utilisateur
+
+const add_favorite = async(req,res)  => {
+  
+  
+  try{ 
+    const chatID = req.params.chatID
+    const userID= req.params.userID
+    const type = req.params.type
+
+    chat = chatFactory([],[],true,[],type,"","",[],0);
+
+    response= await chat.ajouter_chat_favoris(chatID,userID) 
+    res.status(200).json(response);
+}
+catch(error){
+    console.log(error)
+    res.status(500).json(error)
+}
+       
+}
+
 // rechercher un chat 
 
 
@@ -132,4 +171,4 @@ const findchats =  async(req,res)  => {
     }
 };
 
-module.exports= {createchat,finduserchats,findchats,updatechat}
+module.exports= {createchat,finduserchats,findchats,updatechat,add_favorite,archiver_chat}

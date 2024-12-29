@@ -11,6 +11,7 @@ class  Chat {
     }
     cree_chat(){}
 
+    ajouter_chat_favoris(){}
     liste_chat(){}
 
     liste_chat_archive(){}

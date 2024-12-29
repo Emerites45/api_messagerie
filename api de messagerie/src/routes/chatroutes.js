@@ -1,5 +1,5 @@
 const express = require("express")
-const {createchat,finduserchats,findchats,updatechat} = require ("../controllers/chatControllers")
+const {createchat,finduserchats,findchats,updatechat,add_favorite,archiver_chat} = require ("../controllers/chatControllers")
 const router = express.Router()
 /**
  * @swagger
@@ -57,6 +57,8 @@ router.post("/",createchat);
 router.get("/:userID",finduserchats);
 router.get("/find/:premierID/:secondID",findchats);
 router.put("/:chatID",updatechat)
+router.put("/favorite/:chatID/:userID/:type",add_favorite)
+router.put("/archive/:chatID/:userID/:type",archiver_chat)
 
 
 module.exports=  router;
