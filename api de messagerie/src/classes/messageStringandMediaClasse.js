@@ -125,7 +125,7 @@ class  MessageStringAndMedia extends Message {
 
         const objectid= new ObjectId(messageid)
         const messages_string_and_media= await messagemedia_and_string_Model.findOne({_id:objectid})
-    
+        let result =""
         const chat_objectid= new ObjectId(messages_string_and_media.chatid)
         console.log("id chat"+ chat_objectid )
         const chat = await chat_grouperModel.findOne({_id: chat_objectid})
@@ -133,13 +133,18 @@ class  MessageStringAndMedia extends Message {
     if(chat.nb_message_epingler < 4 && messages_string_and_media.est_epingle===false ){
            messages_string_and_media.est_epingle= true;
            chat.nb_message_epingler= chat.nb_message_epingler +1;
+
+           result ='message epingler'
            console.log("j'arrive ici")
+    }
+    else{
+       result ='message non  epingler'
     }
        
         const element= {$set:messages_string_and_media} 
         const chat_element= {$set:chat} 
             await chat_grouperModel.updateOne({_id:messages_string_and_media.chatid},chat_element)
-         const result = await messagemedia_and_string_Model.updateOne({_id:messageid},element);
+            await messagemedia_and_string_Model.updateOne({_id:messageid},element);
          
          return result;
       }

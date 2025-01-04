@@ -34,15 +34,17 @@ class  MessageMedia extends Message {
 
     let liste_message_media= []
     console.log("userid: "+user_id)
-        const messages_media= await message_media_Model.find({chatid:chatid,lu_par:{$in:[user_id]}})
+        const messages_media= await message_media_Model.find({chatid:chatid,lu_par:{$in:[user_id],},supprimer_pour:{$nin:[user_id]}})
        console.log("jarrive ici et le nombre de message : "+messages_media.length)
         for ( const message of messages_media ){
+           
               const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_activer,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
                 liste_message_media.push(messages);
                 console.log( "le message sous forme dto : "+messages.est_active)
             }
-        return liste_message_media;
-    }
+            return liste_message_media;
+        }
+       
 
     async liste_messages_non_lue(chatid,user_id){
         let liste_message_media= []
@@ -56,9 +58,10 @@ class  MessageMedia extends Message {
               const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_activer,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
                 liste_message_media.push(messages);
                 console.log( "le message sous forme dto : "+messages.est_active)
-            }
+            
         return liste_message_media;
     }
+}
 
   
     async  supprimer_message(messageid){
@@ -101,6 +104,7 @@ class  MessageMedia extends Message {
 
         const objectid= new ObjectId(messageid)
         const messages_media= await message_media_Model.findOne({_id:objectid})
+        const result =""
     
         const chat_objectid= new ObjectId(messages_media.chatid)
         console.log("id chat"+ chat_objectid )
@@ -110,12 +114,17 @@ class  MessageMedia extends Message {
            messages_media.est_epingle= true;
            chat.nb_message_epingler= chat.nb_message_epingler +1;
            console.log("j'arrive ici")
+           result=  "message epingler"
+
+    }
+    else{
+        result= "message non epingler"
     }
        
         const element= {$set:messages_string_and_media} 
         const chat_element= {$set:chat} 
             await chat_grouperModel.updateOne({_id:messages_media.chatid},chat_element)
-         const result = await message_media_Model.updateOne({_id:messageid},element);
+            await message_media_Model.updateOne({_id:messageid},element);
          
          return result;
       }

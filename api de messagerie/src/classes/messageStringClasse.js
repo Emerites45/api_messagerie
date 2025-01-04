@@ -83,21 +83,25 @@ class  MessageString extends Message {
   }
 
   async  epingler_message(messageid){
-
+    let result=""
     const objectid= new ObjectId(messageid)
     const messages_string= await message_string_Model.find({_id:objectid})
 
     const chat_objectid= new ObjectId(messages_string.chatid)
     const chat = await chat_grouperModel({_id: chat_objectid})
 if(chat.nb_message_epingler < 4 ){
-       messages_string.est_activer= false;
+       messages_string.est_epingle= true;
        chat.nb_message_epingler= chat.nb_message_epingler +1;
+       result = "message epingler "
+}
+else{
+  result= "je ne peux plus epingler"
 }
    
     const element= {$set:messages_string} 
     const chat_element= {$set:chat} 
         await chat_grouperModel.updateOne({_id:messages_string.chatid},chat_element)
-     const result = await message_string_Model.updateOne({_id:messageid},element);
+        await message_string_Model.updateOne({_id:messageid},element);
      
      return result;
   }

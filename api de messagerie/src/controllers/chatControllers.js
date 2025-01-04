@@ -86,18 +86,9 @@ const updatechat =  async(req,res)  => {
     const {chatID} = req.params
     let response
     try{
-        chat = chatFactory(req.body.valeur_favorite,req.body.est_archive,req.body.est_activer,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,req.body.nb_message_epingler);
-       
-        console.log("le chat id: "+chatID)
-        if( req.body.type=="individuel"){
-           
+        chat = chatFactory([],[],true,req.body.membres,"groupe",req.body.nom,req.body.description,req.body.administrateur,0);
             response= await chat.modifier_chat(chatID,chat);
-             }
- 
-           if( req.body.type=="groupe"){  
-            response= await  chat.modifier_chat(chatID,chat);
-          
-         }
+            
          res.status(200).json(response);
 
     }
