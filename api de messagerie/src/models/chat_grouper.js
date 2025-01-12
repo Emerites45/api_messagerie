@@ -1,14 +1,34 @@
 const mongoose = require('mongoose');
 
 const chat_grouper_Schema = new mongoose.Schema({
-  membres: Array,
-  administrateur: Array,
-  nom:String,
-  description: String,
-  nb_message_epingler: Number,
+  membres:{
+    type:  Array,
+    required: true
+  },
+  administrateur:{
+    type:  Array,
+    required: true
+  },
+  nom: {
+   type: String,
+   required:true,
+  },
+  description: {
+    type:String,
+    required:true},
+  nb_message_epingler: {
+    type: Number,
+    required: true,
+  },
   est_activer: { type: Boolean, default: false },
-  valeur_favorite: Array,
-  est_archive_par:Array ,
+  valeur_favorite:{
+    type:  Array,
+    required: true
+  },
+  est_archive_par:{
+    type:  Array,
+    required: true
+  } ,
  
  
 },

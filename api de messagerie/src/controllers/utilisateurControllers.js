@@ -8,17 +8,24 @@ const Utilisateur = require("../classes/utilisateur")
 const createutilisateur = async(req,res)  => {
 
     try{
-
+       let reponse=""
         let utilisateur= new Utilisateur(req.body.id_utilisateur,req.body.pseudo,req.body.adresse_mail)
         let newutilisateur = new utilisateurModel(utilisateur)
-        const response = await  newutilisateur.save()
-        res.status(200).json(response)
+         await  newutilisateur.save().then(() => reponse='Utilisateur sauvegardé avec succès !')
+         .catch(err => {
+          console.error('Erreur de validation :', err.message);
+          reponse = err.message;
+          
+        });
+
+        
+        res.json({reponse})
 
 
     }
     catch(error){
         console.log(error)
-        res.status(500).json(error)
+        res.status(500).json({ error})
     }
 }
 

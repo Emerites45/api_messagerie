@@ -34,23 +34,15 @@ const  createmessage = async(req,res)  => {
     let messages = chatFactory(chatid,contenu,media,id_expediteur,true,type)
     let response=""
       
-    if( req.body.type=="string"){
-
-      
-     response= await  messages.envoyer_message(messages)
-
-    }
-    if( req.body.type=="media"){
-            response= await  messages.envoyer_message(messages)
-    }
-    if( req.body.type=="string_and_media"){
-        response= await  messages.envoyer_message(messages)
-      
-    }
-if(response ===""){
-      response= "le type fourni ne correspond a aucun de notre repertoire"
-}
-       res.status(200).json(response)
+  
+         await  messages.envoyer_message(messages).then(() => response='Message sauvegardé avec succès !')
+         .catch(err => {
+          console.error('Erreur de validation :', err.message);
+          response = err.message;
+          
+        })
+   
+       res.json({response});
      }
      catch(error){
         console.log(error)

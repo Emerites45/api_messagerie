@@ -3,13 +3,25 @@ const mongoose = require('mongoose');
 const message_media_Schema = new mongoose.Schema({
   
     
-    chatid: String,
-    media: String,
-    est_activer: { type: Boolean, default: true },
-    est_epingle: { type: Boolean, default: false },
-    id_expediteur: String,  
-    lu_par:Array, 
-    supprimer_pour:Array,
+    chatid: { type: String,
+        required: [true,'l identifiant du chat  est requis ']
+    },
+    media:
+    { type: String,
+      required: [true,'le chemin pour le media  est requis ']
+    },
+    est_activer: { type: Boolean, default: true, required: true },
+    est_epingle: { type: Boolean, default: false, required: true  },
+    id_expediteur:{ type: String,
+        required: [true,'l identifiant de l expediteur du message est requis ']
+      },  
+    lu_par: { type: Array,
+        required: true
+     }, 
+    supprimer_pour:
+    { type: Array,
+       required: true
+    },
 },
 {
     timestamps: true,

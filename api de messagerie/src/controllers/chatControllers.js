@@ -36,9 +36,14 @@ const createchat = async(req,res)  => {
 
         chat = chatFactory([],[],true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
 
-         response= await  chat.cree_chat(chat);
+          await  chat.cree_chat(chat).then(() => response='Chat sauvegardé avec succès !')
+          .catch(err => {
+           console.error('Erreur de validation :', err.message);
+           response = err.message;
+           
+         })
     
-        res.status(200).json(response);
+        res.json({response});
 
     }catch(error){
         console.log(error);
