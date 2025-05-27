@@ -1,0 +1,166 @@
+table {
+  width: 100%;
+}
+.mat-row {
+  background-color: #424242; /* Couleur de fond plus foncée */
+  color: white; /* Couleur du texte */
+}
+.sub-columns {
+  display: flex;
+  justify-content: space-between;
+}
+.sub-columns > div {
+  width: 48%; /* Ajustez la largeur des sous-colonnes */
+}
+
+.mat-column-column1 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-column2 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+
+.mat-column-column3 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-column4 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-column5 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-column6 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-column7 {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.subColumn1{
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center; 
+}
+
+.custom-row {
+  background-color: #424242 !important; /* Couleur de fond plus foncée */
+  color: white; /* Couleur du texte */
+}
+
+.custom-row:hover {
+  background-color: #616161 !important; /* Couleur de fond au survol */
+}
+
+.mat-header-cell {
+  background-color: #333333; /* Couleur de fond des en-têtes */
+  color: white; /* Couleur du texte des en-têtes */
+}
+
+.sub-columns {
+display: flex;
+justify-content: space-between; /* Espace entre les sous-colonnes */
+}
+
+.sub-column {
+width: 48%; /* Ajustez la largeur des sous-colonnes */
+margin: 5px;
+padding: 8px; /* Ajoutez un peu de rembourrage */
+background-color: #e0e0e0; /* Couleur de fond pour les sous-colonnes */
+border: 1px solid #ccc; /* Bordure optionnelle pour séparer les sous-colonnes */
+border-radius: 4px; /* Coins arrondis */
+}
+
+.tab{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px;
+height: 200hv;
+color: white;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 10px;
+  height: 50hv;
+  color: white;
+  ;
+}
+
+.signup-title {
+  color: yellow; 
+  text-align: center; 
+  margin-bottom: 20px; 
+  font-size: 30px;
+  padding: 10px; 
+  background-color: white; 
+  width: 100%; 
+  max-width: 400px; 
+}
+.filter{
+
+border-radius: 10px;
+padding: 20px;
+background-color:white;
+width: 100%;
+
+color: white;
+}
+
+.historique{
+
+  flex-direction: column;
+  
+  padding: 20px;
+  margin: 10px;
+  border: 3px solid  white;  
+  height: 50hv;
+  color: white;
+  ;
+}
+
+.excel{
+width: 300px; /* Ajustez la largeur des sous-colonnes */
+margin: 20px;
+padding: 8px; /* Ajoutez un peu de rembourrage */
+background-color: #e0e0e0; /* Couleur de fond pour les sous-colonnes */
+border: 1px solid #ccc; /* Bordure optionnelle pour séparer les sous-colonnes */
+border-radius: 4px; /* Coins arrondis */
+
+}
+
+
+.side-nav{
+  height: 80hv;
+}

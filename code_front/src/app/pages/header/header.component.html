@@ -1,0 +1,12 @@
+<mat-toolbar style="background-color: hsla(246, 83%, 45%, 0.918);">
+    <span class="title" style="background-color: hsla(246, 83%, 45%, 0.918); color: yellow;">{{ "Petit Colis" | translate}}</span>
+    
+    <span class="spacer"></span>
+    <button mat-button (click)="selectLanguage($event)" value="fr"  style=" color: yellow;">FR</button>
+    <button mat-button (click)="selectLanguage($event)"  value="en" style=" color: yellow;">EN</button>
+    <a mat-button style="background-color: hsla(246, 83%, 45%, 0.918); color: yellow;"  routerLink="/register">{{"S'incrire" | translate}}</a>
+    <a mat-button style=" background-color: hsla(246, 83%, 45%, 0.918); color: yellow;" routerLink="/login">{{ "Se connecter" | translate }}</a>
+    
+  </mat-toolbar>
+  <div style="background-color: hsla(246, 83%, 45%, 0.918); color: white">{{"Merci pour la confiance!"| translate}}</div>
+  

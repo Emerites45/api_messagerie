@@ -1,0 +1,117 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 200hv;
+    color: white;
+}
+
+.signup-title {
+    color: yellow; 
+    text-align: center; 
+    margin-bottom: 20px; 
+    font-size: 30px;
+    padding: 10px; 
+    background-color: white; 
+    width: 100%; 
+    max-width: 400px; 
+    display: inline-block;
+}
+
+.signup-form {
+    border: 5px solid #0fa5eb; 
+    border-radius: 10px; 
+    padding: 20px; 
+    background-color:white; 
+    width: 100%; 
+    max-width: 400px; 
+    height: 100hv;
+    color: white;
+}
+
+mat-form-field {
+    width: 100%; 
+}
+.signup-checkbox {
+    margin-bottom: 20px; 
+}
+
+::ng-deep .signup-checkbox .mat-checkbox-label {
+    color: black; 
+}
+
+button {
+    width: 100%; 
+    margin-top: 20px; 
+    height: 40px;
+}
+
+.prefix {
+    margin-right: 8px; 
+    line-height: 24px; 
+    color: black;
+  }
+  
+.valid-button {
+    background-color: yellow;
+    color: yellow; 
+  }
+  
+  .invalid-button {
+    background-color: grey; 
+    color: white; 
+  }
+
+  .button-container {
+    display: flex; /* Utiliser flexbox pour l'alignement */
+    justify-content: flex-end; /* Aligner à droite */
+    margin-top: 20px; /* Espacement supérieur si nécessaire */
+  }
+  
+  button {
+    width: 120px; /* Définir une largeur spécifique */
+    max-width: 100%; /* S'assurer qu'il ne dépasse pas son conteneur */
+  }
+  .spacer {
+    flex: 1; /* Prend tout l'espace disponible */
+}
+
+.button-login{
+    width: 100%; 
+    margin-top: 20px; 
+    height: 40px;
+}
+
+.button-info-expediteur{
+  border: 2px solid, black ; 
+  border-radius: 60%; 
+  width: 10px; 
+  height: 10px; 
+  padding: 10px; 
+  margin-left: 50px;
+
+}
+
+
+.button-info-expediteur_vrai{
+  border: 2px solid, black ; 
+  border-radius: 60%; 
+  width: 10px; 
+  height: 10px; 
+  padding: 10px; 
+  margin-left: 50px;
+  background-color: blue;
+
+}
+
+.button-ajout{
+  width: 400px; 
+  height: 50px; 
+  background-color: blue;
+
+}
+
+.espace{
+  height: 40px;
+}

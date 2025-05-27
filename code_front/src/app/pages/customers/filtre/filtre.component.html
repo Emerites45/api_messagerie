@@ -1,0 +1,58 @@
+<div>
+    <form [formGroup]="form" class="signup-form" (ngSubmit)="onSignup()" >
+    
+      <div class="horizontal-group">
+          <mat-form-field appearance="fill">
+              <span matPrefix class="prefix">Status :</span>
+              <mat-select formControlName="status" (selectionChange)="update_status($event)">
+                  <mat-option value="En attente">En attente</mat-option>
+                  <mat-option value="En cours">En cours</mat-option>
+                  <mat-option value="Livrée">Livrée</mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+    
+      <div class="label">
+          <mat-label class="label">Filtres : </mat-label>
+      
+      </div>
+       
+      <div class="flex-container">
+          <mat-form-field appearance="fill" class="small-input">
+              <mat-label>Date départ</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date_depart">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="small-input">
+              <mat-label>Date arrivée</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="date_arrivee">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="small-input">
+              <mat-label>Point de départ:</mat-label>
+              <input type="text" matInput placeholder="Entrer le point de départ" formControlName="point_depart">
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="small-input">
+              <mat-label>Point d'arrivée:</mat-label>
+              <input type="text" matInput placeholder="Entrer le point d'arrivée" formControlName="point_arrivee">
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="small-input">
+              <mat-label>Mot clé:</mat-label>
+              <input type="text" matInput placeholder="" formControlName="mot_cle">
+          </mat-form-field>
+      </div>
+    
+      <div class="button-container">
+          <!-- Use Angular's *ngIf directive instead of @if -->
+          <button  mat-raised-button color="black" style="background-color: blue;" type="submit">Filtrer</button>
+      </div>
+    
+    </form>
+    
+    </div>

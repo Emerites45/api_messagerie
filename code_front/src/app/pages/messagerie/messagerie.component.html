@@ -1,0 +1,61 @@
+<div  class="container" >
+  
+    <div class="chat">
+      <div class="search">
+       <form [formGroup]="form" class="signup-form ">
+       <mat-form-field appearance="fill">
+       <input 
+       type="text"
+         matInput
+         placeholder="search"
+         formControlName="search"
+         />
+     </mat-form-field>
+   </form>
+   <div>
+     <div class="user-list">
+       <h5>Active Users</h5>
+       <ul>
+         @for(user of users ; track user.name){
+         <li  (click)="joinGroup(user.id)">
+           <img [src]="user.avatarUrl" alt="{{ user.name }}" class="avatar" />
+           <span>{{ user.name }}</span>
+         </li>
+       }
+       </ul>
+     </div>
+   </div>
+  
+      </div>
+    </div>
+   
+   
+    <div class="message">
+     <h1>Application de Chat</h1>
+     <div class="messages_lue">
+         messages
+     </div>
+     <div>
+      <ul>
+        @for(message of allmessages ; track $index){
+        <li style="color: black;">{{message.contenu}}</li>
+        }
+    </ul>
+     </div>
+     <form   [formGroup]="form"  id="form" action=""  (ngSubmit)="sendMessage()">
+      <mat-form-field appearance="fill">
+         <input    matInput    id="input"  placeholder="Tapez votre message..."  formControlName='Message'/>
+      </mat-form-field>
+      <div> <button type="submit">Envoyer</button></div>
+     </form>
+
+     <div>
+      <ul>
+        @for(message of messages ; track $index){
+        <li style="color: black;">{{message}}</li>
+        }
+    </ul>
+     </div>
+    </div>
+   </div>
+  

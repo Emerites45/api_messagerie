@@ -1,0 +1,21 @@
+.home-page {
+    display: flex;                  /* Utilise Flexbox */
+    flex-direction: column;        /* Aligne les éléments en colonne */
+    align-items: center;           /* Centre horizontalement */
+    justify-content: center;       /* Centre verticalement */
+    height: 75vh;                 /* Prend toute la hauteur de la page */
+    font-family: 'Roboto', sans-serif; /* Applique la police Roboto */
+    color: yellow;                 /* Définit la couleur du texte en jaune */
+}
+
+
+.home-page a {
+    text-decoration: none;         /* Supprime le soulignement des liens */
+    color: yellow;                 /* Couleur des liens en jaune */
+    font-size: 20px;               /* Taille de police */
+    margin: 10px 0;               /* Espacement entre les éléments */
+}
+
+.home-page a:hover {
+    text-decoration: underline;    /* Ajoute un soulignement au survol */
+}

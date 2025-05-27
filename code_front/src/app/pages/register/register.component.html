@@ -1,0 +1,135 @@
+<div  class="signup-container" >
+  <h4 class="signup-title">Inscription</h4>
+<form [formGroup]="form" class="signup-form "   (ngSubmit)="onSignup()"   style="background-color: white;  border: 2px solid  , rgb(11, 111, 168); 
+    border-radius: 10px; ">
+    <div>
+  <mat-form-field appearance="fill">
+    <mat-label>Nom : </mat-label>
+    <input type="text" matInput placeholder="Nom" id="" required="" formControlName="nom">
+    @if(form.get('nom')?.hasError('required') && form.get('nom')?.touched){
+     <mat-error>Votre nom est requis </mat-error>
+    }
+    @if( form.get('nom')?.hasError('minlength')  && form.get('nom')?.touched ){
+      <mat-error>Votre nom dois avoir au minimum 4 caracteres </mat-error>
+     }
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Prénoms: </mat-label>
+    <input type="text" matInput placeholder="prenoms" id="" required="" formControlName="prenoms">
+    @if(form.get('prenoms')?.hasError('required') && form.get('prenoms')?.touched){
+     <mat-error>Votre prénoms est requis </mat-error>
+    }
+  </mat-form-field>
+</div>
+
+
+<div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Tel:(237 uniquement)</mat-label>
+    <span matPrefix class="prefix">+237</span>
+
+    <input matInput placeholder="Entrer votre numero de téléphone" required="" formControlName="telephone" >
+    @if(form.get('telephone')?.hasError('required') && form.get('telephone')?.touched){
+      <mat-error>Votre numero de téléphone est requis </mat-error>
+     }
+     @if( form.get('telephone')?.hasError('pattern')  && form.get('telephone')?.touched ){
+      <mat-error>Votre numero ne doit contenir que des chiffres </mat-error>
+     }
+  </mat-form-field>
+</div>
+
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Ville:</mat-label>
+    <input matInput placeholder="Ville: " required=""  formControlName="ville">
+    @if(form.get('ville')?.hasError('required') && form.get('ville')?.touched){
+      <mat-error>Votre ville est requise </mat-error>
+     }
+  </mat-form-field>
+</div>
+
+
+  <div>
+  <mat-form-field appearance="fill">
+    <mat-label>Email: </mat-label>
+    <input matInput placeholder="Entrer votre email" required="" formControlName="email">
+    @if(form.get('email')?.hasError('required') && form.get('email')?.touched){
+     <mat-error>Votre email est requis </mat-error>
+    }
+    @if(form.get('email')?.hasError('email') && form.get('email')?.touched){
+        <mat-error>Votre email est invalide </mat-error>
+    }
+  </mat-form-field>
+</div>
+
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Mot de passe </mat-label>
+    <input matInput type="password" placeholder="Entrer votre mot de passe " required=""  formControlName="password">
+    @if(form.get('password')?.hasError('required') && form.get('password')?.touched){
+      <mat-error>Votre mot de passe est requis </mat-error>
+     }
+    
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Confirmation de mot de passe </mat-label>
+    <input matInput type="password" placeholder="Entrer la confirmation de votre de mot de passe" required=""  formControlName="conpassword">
+    @if(form.get('conpassword')?.hasError('required') && form.get('conpassword')?.touched){
+      <mat-error>Votre  confirmation de mot de passe est requis </mat-error>
+     }
+
+     @if (!passwordsMatch() && (conpassword?.touched || conpassword?.dirty)) {
+      <small style="color: red;">Les mots de passe ne correspondent pas.</small>
+    }
+
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-checkbox class="signup-checkbox" formControlName="isChecked1" >
+    <span style="color: black; font-size: 20px;">Je ne suis pas un robot</span>
+  </mat-checkbox>
+</div>
+
+<div>
+  <mat-checkbox class="signup-checkbox" formControlName="isChecked2" >
+    <span style="color: black; font-size: 20px;">Accepter les termes et conditions</span>
+    
+  </mat-checkbox>
+</div>
+
+
+
+@if (form.get('isChecked1')?.invalid && form.get('isChecked1')?.touched) {
+  <small style="color:red;">Vous devez confirmer que vous n'êtes pas un robot.</small>
+}
+<div>
+@if (form.get('isChecked2')?.invalid && form.get('isChecked2')?.touched) {
+  <small style="color:red;">Vous devez accepter les termes et conditions.</small>
+}
+</div>
+<div class="button-container">
+  <span class="spacer"></span>
+  @if(!form.valid){
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Inscription</button>
+  }
+    @if(form.valid){
+      <button mat-raised-button color="black" style="background-color: blue;" type="submit" >Inscription</button>
+     }
+</div>
+<div>
+  <span class="spacer"></span>
+ <a  class="button-login"mat-button routerLink="/login" style="color: black;"> Si  vous avez  un compte connecter vous  </a>
+</div>
+</form>
+
+</div>

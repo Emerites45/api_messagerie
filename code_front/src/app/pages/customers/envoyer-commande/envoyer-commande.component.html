@@ -1,0 +1,181 @@
+
+<div>
+  <mat-sidenav-container  style="height: 100vh;" >
+    @if(isSidenavOpened){
+        
+      <mat-sidenav #sidenav mode="side" [opened]="true" style="width: 300px; background-color: beige;">
+        <app-customer-nav-bar></app-customer-nav-bar>
+    </mat-sidenav>
+  }
+    
+    <mat-sidenav-content style="height: 100vh;">
+        <app-customers-top-bar (sidenavToggle)="toggleSidenav()"></app-customers-top-bar>
+      
+<div  class="signup-container" >
+  <h4 class="signup-title">Envoyer une commande</h4>
+ 
+<form [formGroup]="form" class="signup-form "   (ngSubmit)="onSignup()"   style="background-color: white;  border: 2px solid  , rgb(11, 111, 168); 
+    border-radius: 10px; ">
+
+
+<div formArrayName="formsArray">
+@for (formGroup of  formsArray.controls; track $index;  ) {
+  <div [formGroupName]=$index>
+
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Type de colis : </mat-label>
+        <input type="text" matInput placeholder=" Entrer le type de colis" id="" required="" formControlName="type_colis">
+        @if(form.get('type_colis')?.hasError('type_colis') && form.get('type_colis')?.touched){
+         <mat-error>Vous n'avez pas renseigné le type de votre colis </mat-error>
+        }
+      </mat-form-field>
+    </div>
+      
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Quantité : </mat-label>
+    <input type="text" matInput placeholder="Entrer la quantité " id="" required="" formControlName="quantité">
+    @if(form.get('quantité')?.hasError('required') && form.get('quantité')?.touched){
+     <mat-error>Vous n'avez pas renseigné la quantité  </mat-error>
+    }
+  </mat-form-field>
+</div>
+
+
+<div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Montant à collecter : </mat-label>
+    <input matInput placeholder="Exemple : 123.65 " required="" formControlName="montant" >
+    @if(form.get('montant')?.hasError('required') && form.get('montant')?.touched){
+      <mat-error>Votre montant à collecter est requis </mat-error>
+     }
+     @if( form.get('montant')?.hasError('pattern')  && form.get('montant')?.touched ){
+      <mat-error>Votre montant ne peut contenir que des chiffres et le point  </mat-error>
+     }
+  </mat-form-field>
+</div>
+
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Recommandations:</mat-label>
+    <input matInput placeholder="recommandation: " required=""  formControlName="recommandation">
+    @if(form.get('recommandation')?.hasError('required') && form.get('recommandation')?.touched){
+      <mat-error>Votre recommandation est requise </mat-error>
+     }
+  </mat-form-field>
+</div>
+<div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Point de départ : </mat-label>
+    <input type="text" matInput placeholder="Entrer le point de départ de la commande " id="" required="" formControlName="point_depart">
+    @if(form.get('point_depart')?.hasError('required') && form.get('point_depart')?.touched){
+     <mat-error>Votre point départ est requis </mat-error>
+    }
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Point d'arrivée : </mat-label>
+    <input type="text" matInput placeholder="Entrer le point d'arrivée de votre commande " id="" required="" formControlName="point_d_arrivee">
+    @if(form.get('point_d_arrivee')?.hasError('required') && form.get('point_d_arrivee')?.touched){
+     <mat-error>Votre point d'arrivée est requis </mat-error>
+    }
+  </mat-form-field>
+</div>
+
+
+<div>
+  <mat-label style="color: black;">Nom expéditeur </mat-label>
+  @if ( info_expediteur ) {
+    <button 
+    class="button-info-expediteur_vrai" 
+   mat-icon-button
+    color="white" 
+    type="button" 
+    (click)="toggleInfo_expediteur()" >
+    
+  </button>
+  }
+  @else{
+  <button 
+    class="button-info-expediteur" 
+   mat-icon-button
+    color="white" 
+    type="button" 
+    (click)="toggleInfo_expediteur()" >
+    
+  </button>}
+  <mat-label style="color: black; display: block;">Tel expéditeur</mat-label>
+</div>
+
+  <div>@if ( info_expediteur ) {
+    <p> <small style="color: black;">{{user1.name}}</small></p> 
+    <p> <small style="color: black;">{{user1.telephone}}</small></p> 
+    }  </div>
+
+
+
+
+<div>
+  <mat-label style="color: black;">Nom destinataire </mat-label>
+
+  @if ( info_destinataire ) {
+    <button 
+    class="button-info-expediteur_vrai" 
+   mat-icon-button
+    color="white" 
+    type="button" 
+    (click)="toggleInfo_destinataire()" >
+    
+  </button>
+  }
+  @else{
+  <button 
+    class="button-info-expediteur" 
+   mat-icon-button
+    color="white" 
+    type="button" 
+    (click)="toggleInfo_destinataire()" >
+    
+  </button>
+}
+  <mat-label style="color: black; display: block;">Tel destinataire</mat-label>
+</div>
+
+  <div>@if ( info_destinataire ) {
+    <p> <small style="color: black;">{{user2.name}}</small></p> 
+    <p> <small style="color: black;">{{user2.telephone}}</small></p> 
+    }  </div>
+
+
+    <button mat-raised-button class="button-ajout" color="primary" type="button" (click)="addForm()">Ajouter un nouveau formulaire</button>
+
+
+  </div>
+  <p class="espace"></p>
+
+}
+
+<div class="button-container">
+  <span class="spacer"></span>
+  @if(!form.valid){
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Valider</button>
+  }
+    @if(form.valid){
+      <button mat-raised-button color="black"   routerLink="/customer" style="background-color: blue;" type="submit" >Valider</button>
+     }
+</div>
+
+</div>
+
+</form>
+
+</div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  </div>

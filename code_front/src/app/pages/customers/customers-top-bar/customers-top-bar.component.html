@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+        <a class="button-register" mat-button routerLink="/customer/update-user" style="color: black;">Modifier votre profil</a>
+        <button mat-menu-item (click)="logOut()">Se déconnecter</button>
+    </mat-menu>
+</mat-toolbar>

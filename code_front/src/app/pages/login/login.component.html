@@ -1,0 +1,46 @@
+    
+    <div class="container" style="background-color: white;  height: 94vh;">
+  <h2 class="title">Connexion</h2>
+  <div class="form-container"  style="background-color: white;  border: 5px solid #0fa5eb; 
+    border-radius: 10px;  ">
+      <form [formGroup]="form"  (ngSubmit)="onlogIn()">
+   
+          <div>
+              <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Enter your email" required="" formControlName="email">
+                  @if(form.get('email')?.hasError('required') && form.get('email')?.touched){
+                   <mat-error>Votre email est requis </mat-error>
+                  }
+                  @if(form.get('email')?.hasError('email') && form.get('email')?.touched){
+                      <mat-error>Votre email est invalide </mat-error>
+                  }
+              </mat-form-field>
+          </div>
+          <div>
+              <mat-form-field appearance="fill">
+                  <mat-label>mot de passe </mat-label>
+                  <input matInput type="password" placeholder="Entrer votre mot de passe " required=""  formControlName="password">
+    @if(form.get('password')?.hasError('required') && form.get('password')?.touched){
+      <mat-error>Votre mot de passe est requis </mat-error>
+     }
+              </mat-form-field>
+          </div>
+          <div class="button-container">
+          <span class="spacer"></span>
+          @if(!form.valid){
+          <button  class="btn-default" color="primary" type="submit" [disabled]="!form.valid">Connexion</button>
+        }
+          @if(form.valid){
+            <button mat-raised-button   class="btn-blue" color="black" style="background-color: blue;" type="submit" >Connexion</button>
+           }
+        </div>
+        <div>
+            <span class="spacer"></span>
+           <a  class="button-register"mat-button routerLink="/register" style="color: black;"> Si  vous n'avez  pas de compte cliquez ici pour vous  inscrire</a>
+          </div>
+        </form>
+  </div>
+</div>
+
+<a href="/customer">customer</a>

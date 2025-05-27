@@ -1,0 +1,89 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping if there's not enough space */
+  gap: 10px; /* Space between input fields */
+}
+
+.small-input {
+  flex: 1; /* Makes inputs take equal space */
+  min-width: 150px; /* Minimum width for each input */
+}
+
+/* Optional: Adjust button container for better alignment */
+.button-container {
+  margin-top: 20px; /* Space above the button */
+}
+.label{
+    color: black;
+    margin: 35px;
+    font-size: 30px;
+}
+
+
+mat-form-field {
+    width: 100%; 
+}
+.signup-checkbox {
+    margin-bottom: 20px; 
+}
+
+::ng-deep .signup-checkbox .mat-checkbox-label {
+    color: black; 
+}
+
+button {
+    width: 100%; 
+    margin-top: 20px; 
+    height: 40px;
+}
+
+.prefix {
+    margin-right: 8px; 
+    line-height: 24px; 
+    color: black;
+  }
+  
+.valid-button {
+    background-color: yellow;
+    color: yellow; 
+  }
+  
+  .invalid-button {
+    background-color: grey; 
+    color: white; 
+  }
+
+  .button-container {
+    display: flex; /* Utiliser flexbox pour l'alignement */
+    justify-content: flex-end; /* Aligner à droite */
+    margin-top: 20px; /* Espacement supérieur si nécessaire */
+  }
+  
+  button {
+    width: 120px; /* Définir une largeur spécifique */
+    max-width: 100%; /* S'assurer qu'il ne dépasse pas son conteneur */
+  }
+  .spacer {
+    flex: 1; /* Prend tout l'espace disponible */
+}
+
+.button-login{
+    width: 100%; 
+    margin-top: 20px; 
+    height: 40px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+ margin: 10px;
+  height: 30hv;
+  color: white;
+  ;
+}
+
+.filtre{
+  margin: 10px;
+}

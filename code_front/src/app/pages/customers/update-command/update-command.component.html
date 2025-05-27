@@ -1,0 +1,101 @@
+<div  class="signup-container" >
+    <h4 class="signup-title">Modifier une commande</h4>
+  <form [formGroup]="form" class="signup-form "   (ngSubmit)="onSignup()"   style="background-color: white;  border: 2px solid  , rgb(11, 111, 168); 
+      border-radius: 10px; ">
+
+<div>
+    <mat-form-field appearance="fill">
+      <mat-label>Nom expéditeur : </mat-label>
+      <input type="text" matInput placeholder="type_colis" id=""  formControlName="nom_expediteur">
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Tel expediteur </mat-label>
+      <span matPrefix class="prefix">+237</span>
+      <input type="text" matInput placeholder="entrer le numero de l' expediteur" id=""  formControlName="tel_expediteur">
+      @if( form.get('telephone')?.hasError('pattern')  && form.get('telephone')?.touched ){
+        <mat-error>le numero ne doit contenir que des chiffres </mat-error>
+       }
+
+    </mat-form-field>
+  </div>
+
+
+
+<div>
+    <mat-form-field appearance="fill">
+      <mat-label>Nom destinataire : </mat-label>
+      <input type="text" matInput placeholder="Entrer le nom du destinateur" id=""  formControlName="nom_destinateur">
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Tel destinataire </mat-label>
+      <span matPrefix class="prefix">+237</span>
+      <input type="text" matInput placeholder="Entrer le numero du destinataire" id=""  formControlName="tel_destinataire">
+      @if( form.get('telephone')?.hasError('pattern')  && form.get('telephone')?.touched ){
+        <mat-error>le  numero  ne doit contenir que des chiffres </mat-error>
+       } 
+    </mat-form-field>
+  </div>
+  
+
+      <div>
+    <mat-form-field appearance="fill">
+      <mat-label>type_colis : </mat-label>
+      <input type="text" matInput placeholder="type_colis" id=""  formControlName="type_colis">
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Quantité: </mat-label>
+      <input type="text" matInput placeholder="prenoms" id=""  formControlName="quantite">
+     
+    </mat-form-field>
+  </div>
+  
+  
+  <div>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Montant à collecter</mat-label>
+      <input matInput placeholder="Entrer votre numero de téléphone"  formControlName="montant" >
+     
+    </mat-form-field>
+  </div>
+  
+  
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>point_arrivée:</mat-label>
+      <input matInput placeholder="point_arrivee: "  formControlName="point_arrivee">
+    </mat-form-field>
+  </div>
+  
+  
+    <div>
+    <mat-form-field appearance="fill">
+      <mat-label>point_depart: </mat-label>
+      <input matInput placeholder="Entrer votre email"  formControlName="point_depart">
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <span class="spacer"></span>
+    @if(!form.valid){
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Valider</button>
+    }
+      @if(form.valid){
+        <button mat-raised-button color="black" style="background-color: blue;" type="submit" >Valider</button>
+       }
+  </div>
+  <div>
+    <span class="spacer"></span>
+   <a  class="button-login"mat-button routerLink="/login" style="color: black;"> Si  vous avez  un compte connecter vous  </a>
+  </div>
+  </form>
+  
+  </div>

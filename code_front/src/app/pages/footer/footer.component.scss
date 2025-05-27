@@ -1,0 +1,40 @@
+.footer {
+    background-color: #ffff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .social-icons {
+    margin-bottom: 10px;
+  }
+  
+  .footer {
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .social-icons a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .social-icons a:hover {
+    color: #f39c12; /* Couleur au survol */
+  }
+  
+  .buttons {
+    margin-top: 10px;
+  }
+  
+  .buttons button {
+    margin: 0 5px;
+  }
+  
