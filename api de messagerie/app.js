@@ -2,6 +2,7 @@ const express =require('express')
 const app =require('express')()
 const server = require('http').createServer(app)
 const chatroute= require("./src/routes/chatroutes")
+const  dossierroute= require("./src/routes/dossierroutes")
 const  messagesroute =require("./src/routes/messagesroutes") 
 const  utilisateurroute =require("./src/routes/utilisateurroutes") 
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -73,6 +74,7 @@ app.use(cookiesParser())
 
 
 app.use("/api/chat", chatroute);
+app.use("/api/dossier",dossierroute)
 app.use("/api/messages", messagesroute)
 app.use("/api/utilisateur",utilisateurroute)
 

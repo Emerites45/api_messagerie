@@ -11,6 +11,7 @@ const chat_grouper_Schema = new mongoose.Schema({
   },
   nom: {
    type: String,
+   unique: true,   
    required:true,
   },
   description: {
@@ -20,7 +21,6 @@ const chat_grouper_Schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  est_activer: { type: Boolean, default: false },
   valeur_favorite:{
     type:  Array,
     required: true
@@ -29,8 +29,14 @@ const chat_grouper_Schema = new mongoose.Schema({
     type:  Array,
     required: true
   } ,
- 
- 
+  supprimer_pour:
+    { type: Array,
+       required: true
+    },
+    associer_au_dossier: {
+      type: String,
+      required:false,
+     },
 },
 {
     timestamps: true,

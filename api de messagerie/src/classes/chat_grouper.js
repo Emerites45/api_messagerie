@@ -10,13 +10,12 @@ class Chat_Grouper extends Chat{
     constructor(
       valeur_favorite = [],
       est_archive_par= [],
-      est_activer= true,
       membres=[],
       nom="",
       description="",
       administrateur=[],
       nb_message_epingler){
-      super(valeur_favorite,est_archive_par,est_activer,membres,"groupe")
+      super(valeur_favorite,est_archive_par,membres,[],"")
       this.description=description
       this.administrateur= administrateur
       this.nom= nom
@@ -26,19 +25,33 @@ class Chat_Grouper extends Chat{
 
    async cree_chat(chat){
       let newchat = new chat_grouperModel(chat)
+      console.log("jarrive ici")
       const response = await  newchat.save()
       return response;
    }
    async modifier_chat(chatID,chat){
-
-      const element= {$set:chat} 
       console.log("le chat id: "+chatID)
+      const objectid= new ObjectId(chatID)
+      const element= {$set:chat} 
+     
       const result = await chat_grouperModel.updateOne({_id:chatID},element);
       return result
    }
 
 
-   
+   async  ajouter_au_dossier(id_dossier,chatID){
+      const objectid= new ObjectId(chatID)
+      
+      const chat= await  chat_grouperModel.findOne({_id:objectid})
+      chat.associer_au_dossier= id_dossier;
+     
+      const element= {$set:chat} 
+      console.log("le chat id: "+chatID)
+      const result = await chat_grouperModel.updateOne({_id:chatID},element);
+      return result
+  
+     }
+
   async ajouter_chat_favoris(chatID, userid){
      
    const objectid= new ObjectId(chatID)
@@ -90,19 +103,18 @@ class Chat_Grouper extends Chat{
    
    async liste_chat(userID){
       let liste_chats= []
-      const chats = await chat_grouperModel.find({membres: {$in:[userID]}})
+      const chats = await chat_grouperModel.find({membres: {$in:[userID]},est_archive_par: {$nin:[userID]}})
       console.log("on a chat grropuer :" + liste_chats.length);
    
       for (const element of chats) {
               const chat = new Chat_grouperdto(
                element.id,
-               element.est_activer,
                element.membres,
                element.nom,
                element.description,
                element.administrateur,
                element.nb_message_epingler,
-               element.createAt,
+               element.createdAt,
                "groupe");
               liste_chats.push(chat);
               console.log("on a chat gropuer :" + liste_chats.length);
@@ -118,12 +130,11 @@ class Chat_Grouper extends Chat{
       for (const element of chats) {
               const chat = new Chat_grouperdto(
                element.id,
-               element.est_activer,
                element.membres,
                element.nom,
                element.description,
                element.administrateur,
-               element.createAt,
+               element.createdAt,
                "groupe");
               liste_chats.push(chat);
               console.log("on a chat grouper :" + liste_chats.length);
@@ -133,24 +144,51 @@ class Chat_Grouper extends Chat{
 
    async liste_chat_favorite(userID){
       let liste_chats= []
-      const chats = await chat_grouperModel.find({valeur_favorite: {$in:[userID]},membres: {$in:[userID]}})
+      const chats = await chat_grouperModel.find({valeur_favorite: {$in:[userID]},membres: {$in:[userID]},est_archive_par: {$nin:[userID]}})
       console.log("on a chat grouper :" + liste_chats.length);
    
       for (const element of chats) {
               const chat = new Chat_grouperdto(
                element.id,
-               element.est_activer,
                element.membres,
                element.nom,
                element.description,
                element.administrateur,
-               element.createAt,
+               element.createdAt,
                "groupe");
               liste_chats.push(chat);
               console.log("on a chat grouper :" + liste_chats.length);
           } 
       return liste_chats;
    }
+
+
+   async ajouter_un_chat_au_dossier(id_dossier,id_chat){
+      let chats
+      const objectid= new ObjectId(id_chat)
+      chats = await chat_grouperModel.findOne({_id:objectid})
+  
+       chats.associer_au_dossier= id_dossier 
+       const element= {$set:chats} 
+    
+       const result = await chat_grouperModel.updateOne({_id:id_chat},element);
+       return result;
+  }
+
+     
+ async  supprimer_chat(chatID){
+   const objectid= new ObjectId(chatID);
+    let response=""
+   const chat = await chat_grouperModel.findByIdAndDelete(objectid);
+
+  if(chat){
+       response= "chat supprimer avec succes "
+  }
+  else{
+   response="chat inexistant"
+  }
+  return response;   
+ }
    
 }
 

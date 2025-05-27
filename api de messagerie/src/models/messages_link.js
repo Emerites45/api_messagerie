@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const message_string_Schema = new mongoose.Schema({
+const message_link_Schema = new mongoose.Schema({
   
     
     chatid:{ type: String,
@@ -20,13 +20,11 @@ const message_string_Schema = new mongoose.Schema({
         required: true
      }, 
 
-
-     
 },
 {
     timestamps: true,
 });
 
-const  message_string_Model= mongoose.model('message_string', message_string_Schema);
+const  message_link_Model= mongoose.model('message_link', message_link_Schema);
 
-module.exports = message_string_Model;
+module.exports = message_link_Model;

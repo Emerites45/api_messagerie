@@ -3,15 +3,15 @@ const Chat_Individuel= require("../classes/chat_individuel")
 const Chat_Grouper= require("../classes/chat_grouper")
 
 
-function chatFactory(valeur_favorite,est_archive,est_activer,membres,type,nom,description,administrateurs,nb_message_epingler) {
+function chatFactory(valeur_favorite,est_archive,membres,type,nom,description,administrateurs,nb_message_epingler) {
     switch (type) {
         case 'individuel':
-            return new Chat_Individuel(valeur_favorite,est_archive,est_activer,membres,"individuel");
+            return new Chat_Individuel(valeur_favorite,est_archive,membres);
         case 'groupe':
-            return new Chat_Grouper(valeur_favorite,est_archive,est_activer,membres,nom,description,administrateurs,nb_message_epingler);
+            return new Chat_Grouper(valeur_favorite,est_archive,membres,nom,description,administrateurs,nb_message_epingler);
         
         default:
-            throw new Error('type de groupe non reconnue');
+            throw new Error('type de chat non reconnue');
     }
 }
 
@@ -34,7 +34,7 @@ const createchat = async(req,res)  => {
 
    // creation du chat 
 
-        chat = chatFactory([],[],true,req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
+        chat = chatFactory([],[],req.body.membres,req.body.type,req.body.nom,req.body.description,req.body.administrateur,0);
 
           await  chat.cree_chat(chat).then(() => response='Chat sauvegardé avec succès !')
           .catch(err => {
@@ -88,10 +88,12 @@ const finduserchats =  async(req,res)  => {
 //modifier un chat 
 
 const updatechat =  async(req,res)  => {
-    const {chatID} = req.params
-    let response
+    const chatID =  req.params.chatID
+    
     try{
-        chat = chatFactory([],[],true,req.body.membres,"groupe",req.body.nom,req.body.description,req.body.administrateur,0);
+        console.log("id : "+chatID)
+        chat = chatFactory([],[],req.body.membres,"groupe",req.body.nom,req.body.description,req.body.administrateur,0);
+
             response= await chat.modifier_chat(chatID,chat);
             
          res.status(200).json(response);
@@ -112,7 +114,7 @@ const archiver_chat =  async(req,res)  => {
     const userID= req.params.userID
     const type = req.params.type
 
-    chat = chatFactory([],[],true,[],type,"","",[],0);
+    chat = chatFactory([],[],[],type,"","",[],0);
 
     response= await chat.archiver_chat(chatID,userID) 
     res.status(200).json(response);
@@ -130,7 +132,7 @@ const add_favorite = async(req,res)  => {
     const userID= req.params.userID
     const type = req.params.type
 
-    chat = chatFactory([],[],true,[],type,"","",[],0);
+    chat = chatFactory([],[],[],type,"","",[],0);
 
     response= await chat.ajouter_chat_favoris(chatID,userID) 
     res.status(200).json(response);
@@ -140,6 +142,26 @@ catch(error){
     res.status(500).json(error)
 }
        
+}
+
+//supprimer un chat 
+
+const deletechats=  async(req,res)  => {
+    try{ 
+      
+        const type = req.params.type
+        const chatID = req.params.chatID
+    
+        chat = chatFactory([],[],[],type,"","",[],0);
+    
+        response= await chat.supprimer_chat(chatID) 
+        res.status(200).json(response);
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json(error)
+    }
+
 }
 
 // rechercher un chat 
@@ -167,4 +189,4 @@ const findchats =  async(req,res)  => {
     }
 };
 
-module.exports= {createchat,finduserchats,findchats,updatechat,add_favorite,archiver_chat}
+module.exports= {createchat,finduserchats,findchats,updatechat,add_favorite,archiver_chat,deletechats}

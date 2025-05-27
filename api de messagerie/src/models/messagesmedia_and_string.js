@@ -15,7 +15,6 @@ const message_media_and_string_Schema = new mongoose.Schema({
     id_expediteur:{ type: String,
         required: [true,'l identifiant de l expediteur du message est requis ']
       },  
-    est_activer: { type: Boolean, default: true },
     est_epingle: { type: Boolean, default: false },
     supprimer_pour: { type: Array,
         required: true

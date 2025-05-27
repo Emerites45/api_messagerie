@@ -2,9 +2,8 @@
 class  Chat_dto {
 
 
-    constructor(id_chat,est_activer,membres,nom,description,administrateur,nb_message_epingler,createAt,type){
-         this.id_chat= id_chat ,
-         this.est_activer = est_activer;
+    constructor(id_chat,membres,nom,description,administrateur,nb_message_epingler,createAt,type){
+         this.id_chat= id_chat,
          this.nom = nom;
          this.membres= membres;
          this.description=description;

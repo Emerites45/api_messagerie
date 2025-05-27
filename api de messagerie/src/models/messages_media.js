@@ -10,7 +10,6 @@ const message_media_Schema = new mongoose.Schema({
     { type: String,
       required: [true,'le chemin pour le media  est requis ']
     },
-    est_activer: { type: Boolean, default: true, required: true },
     est_epingle: { type: Boolean, default: false, required: true  },
     id_expediteur:{ type: String,
         required: [true,'l identifiant de l expediteur du message est requis ']

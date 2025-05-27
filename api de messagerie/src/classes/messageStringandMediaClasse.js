@@ -8,8 +8,8 @@ const message_media_Model= require ("../models/messages_media")
 
 class  MessageStringAndMedia extends Message {
 
-    constructor(chatid="",contenu="",media=[],lu_par=[],id_expediteur="",est_like=false,est_epingle=false,est_activer=true,supprimer_pour=[]){
-        super(chatid,contenu,lu_par,id_expediteur,est_like,est_epingle,est_activer,supprimer_pour)
+    constructor(chatid="",contenu="",media=[],lu_par=[],id_expediteur="",est_like=false,est_epingle=false,supprimer_pour=[]){
+        super(chatid,contenu,lu_par,id_expediteur,est_like,est_epingle,supprimer_pour)
         this.media = media 
     }
 
@@ -20,7 +20,6 @@ class  MessageStringAndMedia extends Message {
     let message = {chatid: messages.chatid,contenu:messages.contenu,media: messages.media[0],lu_par:lu,id_expediteur:messages.id_expediteur,
         est_like:messages.estlike,
         est_epingle: messages.est_epingle,
-        est_activer:messages.est_activer,
         supprimer_pour:messages.supprimer_pour
       } 
       let newmessage =  new messagemedia_and_string_Model(message)
@@ -28,10 +27,11 @@ class  MessageStringAndMedia extends Message {
       messages.media= messages.media.slice(1)
     for(const media of  messages.media){
 
-        let message = {chatid: messages.chatid,media: media,etat:messages.etat,id_expediteur:messages.id_expediteur,
+        let message = {chatid: messages.chatid,
+                       media: media,
+                       id_expediteur:messages.id_expediteur,
                        est_like:messages.estlike,
                        est_epingle: messages.est_epingle,
-                       est_activer:messages.est_activer,
                        supprimer_pour:messages.supprimer_pour
                      } 
                      let newmessage_media =  new message_media_Model(message)
@@ -47,7 +47,7 @@ class  MessageStringAndMedia extends Message {
         const messages_string_and_media = await messagemedia_and_string_Model.find({chatid:chatid,lu_par:{$in:[user_id]}})
 
         for ( const message of messages_string_and_media ){
-            const messages= new message_string_media_dto(message.id,message.chatid,message.contenu,message.media,message.est_activer,message.est_epingle,message.est_like,message.id_expediteur,"string_and_media",message.createdAt) 
+            const messages= new message_string_media_dto(message.id,message.chatid,message.contenu,message.media,message.est_epingle,message.est_like,message.id_expediteur,"string_and_media",message.createdAt) 
               liste_message_string_media.push(messages);
               console.log( "le message sous forme dto : "+messages)
           }
@@ -68,7 +68,7 @@ class  MessageStringAndMedia extends Message {
             await messagemedia_and_string_Model.updateOne({_id:message.id},element);
 
             
-              const messages= new message_string_media_dto(message.id,message.chatid,message.contenu,message.media,message.est_activer,message.est_epingle,message.est_like,message.id_expediteur,"string_and_media",message.createdAt) 
+              const messages= new message_string_media_dto(message.id,message.chatid,message.contenu,message.media,message.est_epingle,message.est_like,message.id_expediteur,"string_and_media",message.createdAt) 
                 liste_message_string_media.push(messages);
                 console.log( "le message sous forme dto : "+messages)
             }
@@ -90,7 +90,6 @@ class  MessageStringAndMedia extends Message {
   async  supprimer_message(messageid){
         const objectid= new ObjectId(messageid)
         const messages_string= await  messagemedia_and_string_Model.find({_id:objectid})
-        messages_string.est_activer= false;
        
         const element= {$set:messages_string} 
          const result = await  messagemedia_and_string_Model.updateOne({_id:messageid},element);
@@ -158,6 +157,20 @@ class  MessageStringAndMedia extends Message {
         }
 
 
+           
+ async  supprimer_message(id_message){
+  const objectid= new ObjectId(id_message);
+   let response=""
+  const  message = await messagemedia_and_string_Model.findByIdAndDelete(objectid);
+
+ if(message){
+      response= "message supprimer avec succes "
+ }
+ else{
+  response="message inexistant"
+ }
+ return response;   
+}
 
 
 }

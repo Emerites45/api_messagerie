@@ -1,5 +1,5 @@
 
-class  Message_String_dto {
+class  Message_link_dto {
 
 
     constructor(id_message,chatid,contenu,est_epingler,id_expediteur,type,createAt){
@@ -13,4 +13,4 @@ class  Message_String_dto {
     }
    
 }
-   module.exports = Message_String_dto;
+   module.exports = Message_link_dto;

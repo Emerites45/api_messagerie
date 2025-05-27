@@ -1,12 +1,11 @@
 
-class  Message_dto {
+class  Message_String_And_Media_dto {
 
 
-    constructor(id_message,chatid,contenu,media,est_activer,est_epingler,id_expediteur,type,createAt){
+    constructor(id_message,chatid,contenu,media,est_epingler,id_expediteur,type,createAt){
          this.id_message= id_message ,
          this.chatid = chatid;
          this.contenu = contenu;
-         this.est_activer = est_activer;
          this.id_expediteur = id_expediteur;
          this.est_epingler= est_epingler;
          this.media= media;
@@ -15,4 +14,4 @@ class  Message_dto {
     }
    
 }
-   module.exports = Message_dto;
+   module.exports =  Message_String_And_Media_dto;

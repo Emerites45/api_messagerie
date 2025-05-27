@@ -13,8 +13,15 @@ const chatSchema = new mongoose.Schema({
     type:  Array,
     required:[true,'la liste des chat  archiver  est requis ']
   },
-  est_activer: { type: Boolean, default: false
+  supprimer_pour:
+  { type: Array,
+     required: true
+  },
+  associer_au_dossier: {
+    type: String,
+    required:false,
    },
+  
 },
 {
     timestamps: true,

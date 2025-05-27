@@ -5,8 +5,8 @@ let message_media_dto = require("../dto/message_media_Dto")
 const { ObjectId } = require('mongodb'); 
 class  MessageMedia extends Message {
 
-    constructor(chatid="",media=[],lu_par=[],id_expediteur="",est_epingle=false,est_activer=true,supprimer_pour=[]){
-        super(chatid,"",lu_par,id_expediteur,est_epingle,est_activer,supprimer_pour)
+    constructor(chatid="",media=[],lu_par=[],id_expediteur="",est_epingle=false,supprimer_pour=[]){
+        super(chatid,"",lu_par,id_expediteur,est_epingle,supprimer_pour)
         this.media = media;
     }
 
@@ -16,9 +16,10 @@ class  MessageMedia extends Message {
         lu.push(messages.id_expediteur)
         for(const media of  messages.media){
 
-            let message = {chatid: messages.chatid,media: media,lu_par:lu,id_expediteur:messages.id_expediteur,
+            let message = {chatid: messages.chatid,
+                           media: media,lu_par:lu,
+                           id_expediteur:messages.id_expediteur,
                            est_epingle: messages.est_epingle,
-                           est_activer:messages.est_activer,
                            supprimer_pour:messages.supprimer_pour
                          } 
 
@@ -38,9 +39,8 @@ class  MessageMedia extends Message {
        console.log("jarrive ici et le nombre de message : "+messages_media.length)
         for ( const message of messages_media ){
            
-              const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_activer,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
+              const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
                 liste_message_media.push(messages);
-                console.log( "le message sous forme dto : "+messages.est_active)
             }
             return liste_message_media;
         }
@@ -54,10 +54,9 @@ class  MessageMedia extends Message {
         for ( const message of messages_media ){
             lu.push(user_id)
             const element= {$set:message} 
-            await messagemedia_and_string_Model.updateOne({_id:message.id},element);
-              const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_activer,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
+            await message_media_Model.updateOne({_id:message.id},element);
+              const messages= new message_media_dto(message.id,message.chatid,message.media,message.est_epingle,message.id_expediteur,"media",message.createdAt) 
                 liste_message_media.push(messages);
-                console.log( "le message sous forme dto : "+messages.est_active)
             
         return liste_message_media;
     }
@@ -67,7 +66,7 @@ class  MessageMedia extends Message {
     async  supprimer_message(messageid){
         const objectid= new ObjectId(messageid)
         const messages_string= await  message_media_Model.find({_id:objectid})
-        messages_string.est_activer= false;
+       
        
         const element= {$set:messages_string} 
          const result = await  message_media_Model.updateOne({_id:messageid},element);
@@ -135,6 +134,22 @@ class  MessageMedia extends Message {
         const messages_string= await message_media_Model.find({chatid:chatid,lu_par:{$nin:[user_id]}})
           return messages_string.length;
         }
+
+        
+           
+ async  supprimer_message(id_message){
+    const objectid= new ObjectId(id_message);
+     let response=""
+    const  message = await message_media_Model.findByIdAndDelete(objectid);
+  
+   if(message){
+        response= "message supprimer avec succes "
+   }
+   else{
+    response="message inexistant"
+   }
+   return response;   
+  }
 
 
 }

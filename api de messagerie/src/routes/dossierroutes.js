@@ -1,12 +1,12 @@
 const express = require("express")
-const {createchat,finduserchats,findchats,updatechat,add_favorite,archiver_chat,deletechats} = require ("../controllers/chatControllers")
+const {createfolder,finduserfolders,findfolder,updatefolder,deletefolder} = require ("../controllers/dossierControllers")
 const router = express.Router()
 /**
  * @swagger
- * /api/chat:
+ * /api/dossier:
  *   post:
- *     summary: Crée un chat
- *     tags: [Chat]
+ *     summary: Crée un dossier 
+ *     tags: [Dossier]
  *     requestBody:
  *       required: true
  *       content:
@@ -18,19 +18,9 @@ const router = express.Router()
  *                 type: string
  *               description:
  *                 type: string
- *               membres:
- *                 type: array
- *                 items:
- *                   type: string  # Définir que chaque élément est une chaîne
- *               administrateur:
- *                 type: array
- *                 items:
- *                   type: string  # Définir que chaque élément est une chaîne
- *               type:
+ *               user_id:
  *                 type: string
- *                 enum: [individuel, groupe]  # Définir les choix possibles
- *                 description: Type de chat, soit 'individuel' soit 'groupe'
- *              
+ *                
  *     responses:
  *       200:
  *         description: Chat mis à jour avec succès
@@ -246,16 +236,12 @@ const router = express.Router()
  *         description: Type de chat, soit 'individuel' soit 'groupe'
  */
 
-
  
-router.post("/",createchat);
-
-router.get("/:userID",finduserchats);
-router.get("/find/:premierID/:secondID",findchats);
-router.put("/:chatID",updatechat)
-router.put("/favorite/:chatID/:userID/:type",add_favorite)
-router.put("/archive/:chatID/:userID/:type",archiver_chat)
-router.delete("/:chatID/:type",deletechats)
+router.post("/",createfolder);
+router.get("/:userID",finduserfolders);
+router.get("/find/:nom",findfolder);
+router.put("/:id_dossier",updatefolder);
+router.delete("/:id_dossier",deletefolder);
 
 
 module.exports=  router;

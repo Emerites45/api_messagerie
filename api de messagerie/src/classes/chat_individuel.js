@@ -7,14 +7,27 @@ const { ObjectId } = require('mongodb');
 
 
 class Chat_Individuel extends Chat{
-    constructor(valeur_favorite = [] ,est_archive_par= [],est_activer= true,membres=[]){
-      super(valeur_favorite,est_archive_par,est_activer,membres,"individuel")
+    constructor(valeur_favorite = [] ,est_archive_par= [],membres=[]){
+      super(valeur_favorite,est_archive_par,membres,[],"")
    }
 
   async cree_chat(chat){
       let newchat = new chatModel(chat)
       const response =  await newchat.save()
       return response;
+   }
+
+   async  ajouter_au_dossier(id_dossier,chatID){
+    const objectid= new ObjectId(chatID)
+    
+    const chat= await  chatModel.findOne({_id:objectid})
+    chat.associer_au_dossier= id_dossier;
+   
+    const element= {$set:chat} 
+    console.log("le chat id: "+chatID)
+    const result = await chatModel.updateOne({_id:chatID},element);
+    return result
+
    }
 
 
@@ -71,7 +84,7 @@ class Chat_Individuel extends Chat{
  
  async liste_chat(userID){
     let liste_chats= []
-    const chats = await chatModel.find({membres: {$in:[userID]}})
+    const chats = await chatModel.find({membres: {$in:[userID]},est_archive_par: {$nin:[userID]}})
  
     for (const element of chats) {
         
@@ -82,11 +95,11 @@ class Chat_Individuel extends Chat{
             console.log("jarrive ici" + element.membres[1]);
 
             console.log("identifiant  :" + element.id);
+            console.log("date dans chat individuelle   :" + element.createdAt);
             console.log("valeur favorite :" + element.valeur_favorite);
            
-            console.log("est activer :" + element.est_activer)
             console.log("pseudo :" + utilisateur.pseudo)
-            const chat = new Chat_dto(element.id,element.est_activer, utilisateur.pseudo,"individuel");
+            const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
 
             console.log("identifiant  :" + chat.id_chat);
             console.log("valeur favorite :" + chat.valeur_favorite);
@@ -97,7 +110,7 @@ class Chat_Individuel extends Chat{
             console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],element.est_activer,utilisateur.pseudo,"individuel");
+            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }
@@ -122,9 +135,9 @@ class Chat_Individuel extends Chat{
             console.log("identifiant  :" + element.id);
             console.log("valeur favorite :" + element.valeur_favorite);
           
-            console.log("est activer :" + element.est_activer)
+           
             console.log("pseudo :" + utilisateur.pseudo)
-            const chat = new Chat_dto(element.id,element.est_activer, utilisateur.pseudo,"individuel");
+            const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
 
             console.log("identifiant  :" + chat.id_chat);
             console.log("valeur favorite :" + chat.valeur_favorite);
@@ -135,7 +148,7 @@ class Chat_Individuel extends Chat{
             console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],element.est_activer,utilisateur.pseudo,"individuel");
+            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }
@@ -149,7 +162,7 @@ class Chat_Individuel extends Chat{
  async liste_chat_favorite(userID){
 
     let liste_chats= []
-    const chats = await chatModel.find({valeur_favorite: {$in:[userID]},membres: {$in:[userID]}})
+    const chats = await chatModel.find({valeur_favorite: {$in:[userID]},membres: {$in:[userID]},est_archive_par: {$nin:[userID]}})
  
     for (const element of chats) {
         
@@ -161,10 +174,8 @@ class Chat_Individuel extends Chat{
 
             console.log("identifiant  :" + element.id);
             console.log("valeur favorite :" + element.valeur_favorite);
-          
-            console.log("est activer :" + element.est_activer)
-            console.log("pseudo :" + utilisateur.pseudo)
-            const chat = new Chat_dto(element.id,element.est_activer, utilisateur.pseudo,"individuel");
+                      console.log("pseudo :" + utilisateur.pseudo)
+            const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
 
             console.log("identifiant  :" + chat.id_chat);
             console.log("valeur favorite :" + chat.valeur_favorite);
@@ -175,7 +186,7 @@ class Chat_Individuel extends Chat{
             console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],element.est_activer,utilisateur.pseudo,"individuel");
+            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }
@@ -184,6 +195,33 @@ class Chat_Individuel extends Chat{
     return liste_chats;
  }
   
+   
+ async  supprimer_chat(chatID){
+    const objectid= new ObjectId(chatID);
+     let response=""
+    const chat = await chatModel.findByIdAndDelete(objectid);
+
+   if(chat){
+        response= "chat supprimer avec succes "
+   }
+   else{
+    response="chat inexistant"
+   }
+   return response;   
+  }
+
+ async ajouter_un_chat_au_dossier(id_dossier,id_chat){
+    let chats
+    const objectid= new ObjectId(id_chat)
+    chats = await chatModel.findOne({_id:objectid})
+
+     chats.associer_au_dossier= id_dossier 
+     const element= {$set:chats} 
+  
+     const result = await chatModel.updateOne({_id:id_chat},element);
+     return result;
+}
+ 
    
 }
 

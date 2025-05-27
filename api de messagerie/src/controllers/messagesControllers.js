@@ -1,9 +1,8 @@
-const message_media_Model= require ("../models/messages_media")
-const  message_string_Model = require ("../models/messages_string")
-const messagemedia_and_string_Model = require("../models/messagesmedia_and_string")
+
 const message_string =  require("../classes/messageStringClasse")
 const message_media = require("../classes/messageMediaClasse")
 const message_string_and_media =require("../classes/messageStringandMediaClasse")
+const message_link =  require("../classes/messageLinkClasse")
 
 
 
@@ -11,14 +10,16 @@ const message_string_and_media =require("../classes/messageStringandMediaClasse"
 
 
 
-function chatFactory(chat_id,contenu,media,id_expediteur,est_activer,type) {
+function chatFactory(chat_id,contenu,media,id_expediteur,type) {
     switch (type) {
         case 'string':
-            return new message_string(chat_id,contenu,[id_expediteur],id_expediteur,false,est_activer,[]);
+            return new message_string(chat_id,contenu,[id_expediteur],id_expediteur,false,[]);
+        case 'link':
+            return new message_link(chat_id,contenu,[id_expediteur],id_expediteur,false,[]);
         case 'media':
-            return new message_media(chat_id,media,[id_expediteur],id_expediteur,false,est_activer,[]);
+            return new message_media(chat_id,media,[id_expediteur],id_expediteur,false,[]);
         case 'string_and_media':
-            return new message_string_and_media(chat_id,contenu,media,[id_expediteur],id_expediteur,false,est_activer,[]);
+            return new message_string_and_media(chat_id,contenu,media,[id_expediteur],id_expediteur,false,[]);
         
         default:
             throw new Error('type de message non reconnue');
@@ -31,7 +32,7 @@ const  createmessage = async(req,res)  => {
    
     const {chatid,contenu,media,id_expediteur,type} = req.body
       
-    let messages = chatFactory(chatid,contenu,media,id_expediteur,true,type)
+    let messages = chatFactory(chatid,contenu,media,id_expediteur,type)
     let response=""
       
   
@@ -63,14 +64,15 @@ const getmessages= async (req, res)  => {
     try {
 
         const messages_string= new  message_string
+        const messages_link= new  message_link
         const messages_media=  new message_media
         const messages_string_and_media = new message_string_and_media
         let response_string = await messages_string.liste_messages(chatid,userid)
-       
+        let response_link = await messages_link.liste_messages(chatid,userid)
         let response_media= await messages_media.liste_messages(chatid,userid)
         let response_string_and_media= await messages_string_and_media.liste_messages(chatid,userid)
 
-        const messages_total= [...response_string, ...response_media, ...response_string_and_media]
+        const messages_total= [...response_string, ...response_media, ...response_link , ...response_string_and_media]
 
         messages_total.sort((a,b)=>new Date(a.createdAt) - new Date(b.createdAt))
 
@@ -100,13 +102,14 @@ const getmessagesnoread= async (req, res)  => {
     try {
 
         const messages_string= new  message_string
+        const messages_link= new  message_link
         const messages_media=  new message_media
         const messages_string_and_media = new message_string_and_media
         let response_string = await messages_string.liste_messages_non_lue(chatid,userid)
-       
+        let response_link =  await messages_link.liste_messages_non_lue(chatid,userid)
         let response_media= await messages_media.liste_messages_non_lue(chatid,userid)
         let response_string_and_media= await messages_string_and_media.liste_messages_non_lue(chatid,userid)
-        const messages_total= [...response_string, ...response_media, ...response_string_and_media]
+        const messages_total= [...response_string, ...response_media, ...response_link , ...response_string_and_media]
 
           messages_total.sort((a,b)=>new Date(a.createdAt) - new Date(b.createdAt))
 
@@ -122,7 +125,7 @@ const getmessagesnoread= async (req, res)  => {
 }  
 
 
-
+// get message id
 
 const getmessagebyid =  async(req,res)  => {
     const {messageID} = req.params
@@ -142,6 +145,8 @@ const getmessagebyid =  async(req,res)  => {
 
 }
 
+
+//update message
 
 const updatemessage =  async(req,res)  => {
     const messageid = req.params.messageid
@@ -250,6 +255,11 @@ const epingler_message =  async(req,res)  => {
          messages_string.epingler_message(messageid)
        
         }
+        if( type === "link"){
+            const messages_link= new  message_link
+             messages_link.epingler_message(messageid)
+           
+            }
         if(type === "media" ){
         const messages_media=  new message_media
            messages_media.epingler_message(messageid)
