@@ -31,7 +31,7 @@ class  MessageString extends Message {
     let liste_message_string=[];
        const messages_string= await message_string_Model.find({chatid:chatid,lu_par:{$in:[user_id]}})
       for ( const message of messages_string){
-        const messages= new message_string_dto(message.id,message.chatid,message.contenu,message.est_epingle,message.est_like,message.id_expediteur,"string",message.createdAt) 
+        const messages= new message_string_dto(message.id,message.chatid,message.contenu,message.est_like,message.est_epingle,message.id_expediteur,"string",message.createdAt) 
           liste_message_string.push(messages);
           console.log( "le message string sous forme dto : "+message.est_activer)
       }
@@ -54,7 +54,7 @@ class  MessageString extends Message {
   lu.push(user_id)
   const element= {$set:message} 
   await message_string_Model.updateOne({_id:message.id},element);
-   const messages= new message_string_dto(message.id,message.chatid,message.contenu,message.est_epingle,message.est_like,message.id_expediteur,"string",message.createdAt) 
+   const messages= new message_string_dto(message.id,message.chatid,message.contenu,message.est_like,message.est_epingle,message.id_expediteur,"string",message.createdAt) 
      liste_message_string.push(messages);
      console.log( "le message string sous forme dto : "+message.est_activer)
  }

@@ -13,6 +13,7 @@ const message_string_Schema = new mongoose.Schema({
         required: [true,'l identifiant de l expediteur du message est requis ']
       },  
     est_epingle: { type: Boolean, default: false, required: true },
+    est_like: { type: Boolean, default: false, required: true },
     supprimer_pour: { type: Array,
         required: true
      },

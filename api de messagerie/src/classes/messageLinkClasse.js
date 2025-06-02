@@ -6,8 +6,8 @@ const link_dto = require("../dto/message_link_Dto")
 
 class  MessageLink extends Message {
 
-    constructor(chatid="",contenu="",lu_par=[],id_expediteur="",est_epingle=false,supprimer_pour=[]){
-        super(chatid,contenu,lu_par,id_expediteur,est_epingle,supprimer_pour)
+    constructor(chatid="",contenu="",lu_par=[],id_expediteur="",est_like=false,est_epingle=false,supprimer_pour=[]){
+        super(chatid,contenu,lu_par,id_expediteur,est_like,est_epingle,supprimer_pour)
     }
 
    async  envoyer_message(messages){

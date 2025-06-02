@@ -107,8 +107,8 @@ const getmessagesnoread= async (req, res)  => {
         const messages_string_and_media = new message_string_and_media
         let response_string = await messages_string.liste_messages_non_lue(chatid,userid)
         let response_link =  await messages_link.liste_messages_non_lue(chatid,userid)
-        let response_media= await messages_media.liste_messages_non_lue(chatid,userid)
-        let response_string_and_media= await messages_string_and_media.liste_messages_non_lue(chatid,userid)
+        let response_media= [] // await messages_media.liste_messages_non_lue(chatid,userid)
+        let response_string_and_media=  []//await messages_string_and_media.liste_messages_non_lue(chatid,userid)
         const messages_total= [...response_string, ...response_media, ...response_link , ...response_string_and_media]
 
           messages_total.sort((a,b)=>new Date(a.createdAt) - new Date(b.createdAt))

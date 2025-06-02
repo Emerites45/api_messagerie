@@ -110,7 +110,7 @@ class Chat_Individuel extends Chat{
             console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
+            const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }
