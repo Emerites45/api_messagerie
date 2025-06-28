@@ -1,0 +1,23 @@
+# Utiliser une image officielle de Node.js comme image parente
+FROM node:14
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /usr/src/app
+
+# Copier package.json et package-lock.json
+COPY package*.json ./
+
+# Installer les dépendances nécessaires
+RUN npm install
+
+# Copier le code source de l'application dans l'image Docker
+COPY . .
+
+# Exposer le port sur lequel l'application va tourner
+EXPOSE 3000
+
+# Définir la variable d'environnement pour MongoDB
+ENV MONGO_DB_URI=mongodb://localhost:27017/messagerie
+
+# Commande à exécuter lorsque le conteneur démarre
+CMD ["node", "app.js"]
