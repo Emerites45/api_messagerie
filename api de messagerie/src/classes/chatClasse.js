@@ -2,9 +2,9 @@
 class  Chat {
 
 
-    constructor(valeur_favorite,est_archive,membres,supprimer_pour,associer_au_dossier){
+    constructor(valeur_favorite,est_archive_par,membres,supprimer_pour,associer_au_dossier){
          this.valeur_favorite = valeur_favorite;
-         this.est_archive = est_archive;
+         this.est_archive_par = est_archive_par;
          this.membres = membres;
          this.supprimer_pour= supprimer_pour;
          this.associer_au_dossier = associer_au_dossier

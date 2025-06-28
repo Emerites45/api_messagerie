@@ -130,29 +130,29 @@ class Chat_Individuel extends Chat{
         let utilisateur;
         if (element.membres[0] == userID) {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[1] });
-            console.log("jarrive ici pour les archiver " + element.membres[1]);
+            /*console.log("jarrive ici pour les archiver " + element.membres[1]);
 
             console.log("identifiant  :" + element.id);
             console.log("valeur favorite :" + element.valeur_favorite);
           
            
-            console.log("pseudo :" + utilisateur.pseudo)
+            console.log("pseudo :" + utilisateur.pseudo)*/
             const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
 
-            console.log("identifiant  :" + chat.id_chat);
+         /*   console.log("identifiant  :" + chat.id_chat);
             console.log("valeur favorite :" + chat.valeur_favorite);
             console.log("est archiver :" + chat.est_archive);
-            console.log("pseudo :" + chat.nom);
+            console.log("pseudo :" + chat.nom);*/
 
             liste_chats.push(chat);
-            console.log("on a :" + liste_chats.length);
+            //console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
+            const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }
-    console.log("nombre chat"+liste_chats.length);
+  //  console.log("nombre chat"+liste_chats.length);
 
     return liste_chats;
  }
@@ -186,7 +186,7 @@ class Chat_Individuel extends Chat{
             console.log("on a :" + liste_chats.length);
         } else {
             utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.membres[0],utilisateur.pseudo,"individuel",element.createdAt);
+            const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
     }

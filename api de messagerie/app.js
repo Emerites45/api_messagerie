@@ -51,6 +51,11 @@ const User = require('./src/models/Users');
 
 const port =  process.env.PORT || 3000
 
+
+//configuration du client eureka 
+
+require('./src/config/eureka');
+
 //synchronisation a la base de donnee mongo
 connectDB();
 //session middleware

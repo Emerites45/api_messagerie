@@ -1,10 +1,11 @@
 
 class  Message {
 
-    constructor(chatid,contenu,lu_par,id_expediteur,est_epingle,supprimer_pour){
+    constructor(chatid,contenu,lu_par,id_expediteur,est_like,est_epingle,supprimer_pour){
          this.chatid = chatid;
          this.contenu = contenu;
          this.lu_par = lu_par;
+         this.est_like= est_like;
          this.est_epingle = est_epingle;
          this.id_expediteur = id_expediteur;
          this.supprimer_pour= supprimer_pour;

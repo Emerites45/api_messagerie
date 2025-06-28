@@ -66,7 +66,7 @@ const finduserchats =  async(req,res)  => {
       
        console.log("j'arrive ici ") 
    
-    const chat_individuel = new Chat_Individuel
+        const chat_individuel = new Chat_Individuel
        const chat_grouper = new Chat_Grouper 
        const liste_chat_individuel= await chat_individuel.liste_chat(userID);
       const liste_chat_grouper= await chat_grouper.liste_chat(userID) 
@@ -110,15 +110,22 @@ const updatechat =  async(req,res)  => {
 
 
 const archiver_chat =  async(req,res)  => {
-    const chatID = req.params.chatID
+ 
+ try{   const chatID = req.params.chatID
     const userID= req.params.userID
     const type = req.params.type
+
+    console.log("le type est :",req.params.type)
 
     chat = chatFactory([],[],[],type,"","",[],0);
 
     response= await chat.archiver_chat(chatID,userID) 
     res.status(200).json(response);
-
+ }
+ catch(error){
+     console.log(error)
+     res.status(500).json(error)
+ }
 }
 
 

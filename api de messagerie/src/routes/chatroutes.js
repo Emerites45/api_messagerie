@@ -33,15 +33,15 @@ const router = express.Router()
  *              
  *     responses:
  *       200:
- *         description: Chat mis à jour avec succès
+ *         description: Chat crée avec succès
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 
- *       404:
- *         description: Chat non trouvé
+ *       500:
+ *         description: la creation du  Chat  n'a pas éte faite
  * 
  * /api/chat/{userId}:
  *   get:
