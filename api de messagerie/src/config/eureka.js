@@ -1,30 +1,28 @@
 const { Eureka } = require('eureka-js-client');
 
-// Configuration du client Eureka
+
 const client = new Eureka({
   instance: {
-    app: 'nodejs-service-messagerie', // Nom de ton service
-    hostName: 'messagerie', // ou l'adresse IP de la machine où tourne Node.js
+    app: 'nodejs-service-messagerie', 
+    hostName: 'localhost', 
     ipAddr: '127.0.0.1',
     port: {
-      '$': 3000, // Port sur lequel tourne ton API Node.js
+      '$': 3000, 
       '@enabled': 'true',
     },
     vipAddress: 'nodejs-service',
-    statusPageUrl: 'http://localhost:3000', // URL de health check (optionnel)
+    statusPageUrl: 'http://localhost:3000',
     dataCenterInfo: {
       '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
       name: 'MyOwn',
     },
   },
   eureka: {
-    host: '147.79.118.51', // Adresse du serveur Eureka
-    port: 8761, // Port du serveur Eureka
-    //servicePath: '/eureka/apps/' // Important pour compatibilité Spring Cloud
+    host: 'localhost',
+    port: 8761, 
   }
 });
 
-// Lancer l’enregistrement auprès d’Eureka
 client.start(error => {
   console.log(error || 'Eureka registration complete');
 });

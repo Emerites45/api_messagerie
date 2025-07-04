@@ -9,7 +9,7 @@ const createutilisateur = async(req,res)  => {
 
     try{
        let reponse=""
-        let utilisateur= new Utilisateur(req.body.id_utilisateur,req.body.pseudo,req.body.adresse_mail)
+        let utilisateur= new Utilisateur(req.body.id_utilisateur,req.body.pseudo,req.body.adresse_mail,req.body.role)
         let newutilisateur = new utilisateurModel(utilisateur)
          await  newutilisateur.save().then(() => reponse='Utilisateur sauvegardé avec succès !')
          .catch(err => {

@@ -13,13 +13,13 @@ const message_link =  require("../classes/messageLinkClasse")
 function chatFactory(chat_id,contenu,media,id_expediteur,type) {
     switch (type) {
         case 'string':
-            return new message_string(chat_id,contenu,[id_expediteur],id_expediteur,false,[]);
+            return new message_string(chat_id,contenu,[id_expediteur],id_expediteur,false,false,[]);
         case 'link':
-            return new message_link(chat_id,contenu,[id_expediteur],id_expediteur,false,[]);
+            return new message_link(chat_id,contenu,[id_expediteur],id_expediteur,false,false,[]);
         case 'media':
-            return new message_media(chat_id,media,[id_expediteur],id_expediteur,false,[]);
+            return new message_media(chat_id,media,[id_expediteur],id_expediteur,false,false,[]);
         case 'string_and_media':
-            return new message_string_and_media(chat_id,contenu,media,[id_expediteur],id_expediteur,false,[]);
+            return new message_string_and_media(chat_id,contenu,media,[id_expediteur],id_expediteur,false,false,[]);
         
         default:
             throw new Error('type de message non reconnue');

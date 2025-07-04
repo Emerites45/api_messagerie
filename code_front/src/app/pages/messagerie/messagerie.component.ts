@@ -107,7 +107,7 @@ update_status(new_value: string){
   }
 
   joinGroup(id:string){
-     this.id_group.set(id)
+     this.id_group.set('6866aaa6b8d05becf0d846a5')
         this.messageservice.join_group(this.id_group())
       
   }
