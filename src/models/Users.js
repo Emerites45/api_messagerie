@@ -7,6 +7,9 @@ const userSchema = new mongoose.Schema({
   pseudo:{
     type: String,
     required: true},
+  role:{
+      type: String,
+      required: true},
   adresse_mail: {
     type: String, 
     unique: true,    

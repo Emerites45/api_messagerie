@@ -4,7 +4,7 @@ const { Eureka } = require('eureka-js-client');
 const client = new Eureka({
   instance: {
     app: 'nodejs-service-messagerie', 
-    hostName: 'messagerie', 
+    hostName: 'localhost', 
     ipAddr: '127.0.0.1',
     port: {
       '$': 3000, 
@@ -18,7 +18,7 @@ const client = new Eureka({
     },
   },
   eureka: {
-    host: '147.79.118.51',
+    host: 'localhost',
     port: 8761, 
   }
 });

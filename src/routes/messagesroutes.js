@@ -3,7 +3,7 @@ const {createmessage,getmessages, getmessagebyid, epingler_message, delete_messa
 const router = express.Router()
 /**
  * @swagger
- * /api/message:
+ * /api/messages:
  *   post:
  *     summary: Crée message
  *     tags: [Message]
@@ -14,8 +14,6 @@ const router = express.Router()
  *           schema:
  *             type: object
  *             properties:
- *               etat:
- *                 type: boolean
  *               medias:
  *                 type: array
  *                 items:
@@ -162,13 +160,13 @@ const router = express.Router()
  *         schema:
  *           type: string
  *         required: true
- *         description: Numeric ID of the chat to get 
+ *         description: string ID of the chat to get 
  *       - in: path
  *         name: userid
  *         schema:
  *           type: string
  *         required: true
- *         description: Numeric ID of the chat to get 
+ *         description: string ID of the chat to get 
  *       - in: path
  *         name: type
  *         schema:
@@ -213,7 +211,7 @@ const router = express.Router()
  *         required: true
  *         description: Numeric ID of the user to get
  *       - in: path
- *         name: chatId
+ *         name: chatid
  *         schema:
  *           type: string  
  *         required: true
@@ -232,13 +230,13 @@ const router = express.Router()
  *         schema:
  *           type: string
  *         required: true
- *         description: Numeric ID of the user to get
+ *         description: string ID of the user to get
  *       - in: path
- *         name: chatId
+ *         name: chatid
  *         schema:
  *           type: string  
  *         required: true
- *         description: Numeric ID of the user to get
+ *         description: string ID of the user to get
  *     responses:
  *       "200":
  *         description: Détails des chats récupérés avec succès

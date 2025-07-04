@@ -8,6 +8,10 @@ const  utilisateurroute =require("./src/routes/utilisateurroutes")
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
+
+const  message_string_Model = require ("./src/classes/messageStringClasse")
+const { ObjectId } = require('mongodb'); 
+
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0', // Version d'OpenAPI
@@ -34,7 +38,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const io = require('socket.io')(server, {
   cors: {
-      origin: "http://localhost:4200", // Remplacez par votre URL Angular
+      origin: "*",//"http://localhost:4200", // Remplacez par votre URL Angular
       methods: ["GET", "POST"]
   }
 })
@@ -51,21 +55,16 @@ const User = require('./src/models/Users');
 
 const port =  process.env.PORT || 3000
 
-
-//configuration du client eureka 
-
-require('./src/config/eureka');
-
 //synchronisation a la base de donnee mongo
 connectDB();
 //session middleware
 global.isConnected = false;
-const corsOptions = {
+/*const corsOptions = {
   origin: 'http://localhost:4200', // Remplacez par votre/vos origine(s) autorisée(s)
     credentials: true, // Autoriser les cookies pour les requêtes authentifiées (si applicable)
     optionsSuccessStatus: 200, // Code de statut personnalisé pour les requêtes de pré-vol (optionnel)
   };
-
+*/
 
 app.use(bodyParser.json())
   .use(bodyParser.urlencoded({extended:true}))
@@ -98,22 +97,36 @@ io.on('connection', (socket) => {
     console.log("j'ai rejoind le chat id: "+groupId);
   });
 
-  socket.on('message', (msg) => {
+  socket.on('send_message', (msg) => {
       console.log('Message received: ' + msg);
       if (socket.currentGroup) {
         io.to(socket.currentGroup).emit('message', msg);
       }
   });
 
+  socket.on('read_message', async (message_id,id_utilisateur) => {
+
+    let lu=[];
+    console.log('Message received: ' + message_id + " et :"+ id_utilisateur);
+
+    const objectid= new ObjectId(messageid)
+    const message= await message_string_Model.find({_id:objectid})
+
+    lu = message.lu_par
+    lu.pus(user_id)
+    const element= {$set:message} 
+    await message_string_Model.updateOne({_id:message.id},element);
+    
+});
+
   socket.on('disconnect', () => {
       console.log('User disconnected');
   });
 });
-
+const path = require('path');
 app.get('/', (req, res) => {
-
-  res.sendFile(`${__dirname}/public/index.html`)
- })
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 //On ajoute la gestion des erreurs 404
 app.use(({res})=>{

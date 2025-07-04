@@ -1,7 +1,6 @@
 const express = require("express")
 const {createutilisateur,listeutilisateur} = require ("../controllers/utilisateurControllers")
 const router = express.Router()
-
 /**
  * @swagger
  * /api/utilisateur:
@@ -9,40 +8,67 @@ const router = express.Router()
  *     summary: Crée un utilisateur
  *     tags: [Utilisateur]
  *     requestBody:
- *      required: true
- *      content:
+ *       required: true
+ *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- * 
- *                 id_utilisateur:
- *                     type: string
- *                 pseudo:
- *                     type: string
- *                 
- *                 adresse_mail:
- *                     type: string
+ *               id_utilisateur:
+ *                 type: string
+ *               pseudo:
+ *                 type: string
+ *               adresse_mail:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *             required:
+ *               - pseudo
+ *               - adresse_mail
+ *               
  *     responses:
- *       200:
- *         description: Chat mis à jour avec succès
+ *       201:
+ *         description: Utilisateur créé avec succès
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                  id_utilisateur:
+ *                 id_utilisateur:
  *                   type: string
- *                  pseudo:
+ *                 pseudo:
  *                   type: string
- *                  adresse_email:
+ *                 adresse_mail:
  *                   type: string
- *                 
- *       404:
- *         description: Chat non trouvé
+ *       400:
+ *         description: Requête invalide, données manquantes ou incorrectes
+ *
+ * /api/utilisateur/list:
+ *   get:
+ *     summary: Liste des utilisateurs
+ *     tags: [Utilisateur]
+ *     responses:
+ *       200:
+ *         description: Détails des utilisateurs récupérés avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_utilisateur:
+ *                     type: string
+ *                   pseudo:
+ *                     type: string
+ *                   role:
+ *                     type: string
+ *                   adresse_mail:
+ *                     type: string
  */
+
 router.post("/",createutilisateur);
-router.get("/",listeutilisateur);
+router.get("/list",listeutilisateur);
 
 
 

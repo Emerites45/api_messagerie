@@ -33,34 +33,32 @@ const router = express.Router()
  *       404:
  *         description: Chat non trouvé
  * 
- * /api/chat/{userId}:
+ * /api/dossier/{nom}:
  *   get:
- *     summary: liste des chats d'un utilisateur
- *     tags: [Chat]
+ *     summary: liste des dossiers d'un utilisateur
+ *     tags: [Dossier]
  *     parameters:
  *       - in: path
- *         name: userId
+ *         name: nom
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Numeric ID of the user to get
  *     responses:
  *       "200":
- *         description: Détails des chats récupérés avec succès
+ *         description: Détails des dossier récupérés avec succès
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 liste_chat_individuel:
+ *                 liste_dossier:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
- *                       id_chat:
+ *                       id_dossier:
  *                         type: string
- *                       est_activer:
- *                         type: boolean
  *                       nom:
  *                         type: string
  *                       type:

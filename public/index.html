@@ -63,7 +63,8 @@
         joinGroupButton.addEventListener('click', function() {
             const groupId = groupIdInput.value;
             if (groupId) {
-                socket.emit('join group', groupId);
+                console.log(groupId)
+                socket.emit('join_group', groupId);
                 groupIdInput.value = ''; // Réinitialiser le champ
                 messages.innerHTML = ''; // Réinitialiser les messages
             }
@@ -73,13 +74,13 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if (input.value) {
-                socket.emit('chat message', input.value);
+                socket.emit('send_message', input.value);
                 input.value = '';
             }
         });
 
         // Réception de messages
-        socket.on('chat message', function(msg) {
+        socket.on('message', function(msg) {
             const item = document.createElement('li');
             item.textContent = msg;
             messages.appendChild(item);
