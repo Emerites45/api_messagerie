@@ -7,6 +7,7 @@ const  messagesroute =require("./src/routes/messagesroutes")
 const  utilisateurroute =require("./src/routes/utilisateurroutes") 
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const eurekaClient = require('./src/config/eureka'); 
 
 
 const  message_string_Model = require ("./src/classes/messageStringClasse")
@@ -33,7 +34,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // Middleware pour servir la documentation Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 const io = require('socket.io')(server, {
@@ -42,7 +43,7 @@ const io = require('socket.io')(server, {
       methods: ["GET", "POST"]
   }
 })
-const connectDB = require('./src/db/db');
+//const connectDB = require('./src/db/db');
 
 const cookiesParser = require('cookie-parser')
 
@@ -56,7 +57,7 @@ const User = require('./src/models/Users');
 const port =  process.env.PORT || 3000
 
 //synchronisation a la base de donnee mongo
-connectDB();
+//connectDB();
 //session middleware
 global.isConnected = false;
 /*const corsOptions = {
