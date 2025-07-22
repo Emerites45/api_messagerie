@@ -1,1 +1,3 @@
 bd.sqlite
+/src/config/eureka.js
+node_modules

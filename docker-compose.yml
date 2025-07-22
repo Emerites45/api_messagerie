@@ -11,20 +11,15 @@ services:
       - MONGO_URI=mongodb://mongo:27017/messagerie
 
 
-
   mongo:
     image: mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    networks:
-      - default  
+  
 
 volumes:
   mongo-data:
 
- networks:
-  default:
-    external:
-      name: my-shared-network
+ 

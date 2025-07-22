@@ -43,7 +43,7 @@ const io = require('socket.io')(server, {
       methods: ["GET", "POST"]
   }
 })
-//const connectDB = require('./src/db/db');
+const connectDB = require('./src/db/db');
 
 const cookiesParser = require('cookie-parser')
 
@@ -60,12 +60,12 @@ const port =  process.env.PORT || 3000
 //connectDB();
 //session middleware
 global.isConnected = false;
-/*const corsOptions = {
+const corsOptions = {
   origin: 'http://localhost:4200', // Remplacez par votre/vos origine(s) autorisée(s)
     credentials: true, // Autoriser les cookies pour les requêtes authentifiées (si applicable)
     optionsSuccessStatus: 200, // Code de statut personnalisé pour les requêtes de pré-vol (optionnel)
   };
-*/
+
 
 app.use(bodyParser.json())
   .use(bodyParser.urlencoded({extended:true}))
