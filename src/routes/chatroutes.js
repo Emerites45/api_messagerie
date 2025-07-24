@@ -16,6 +16,8 @@ const router = express.Router()
  *             properties:
  *               nom:
  *                 type: string
+ *               photo_profil:
+ *                 type: string
  *               description:
  *                 type: string
  *               membres:

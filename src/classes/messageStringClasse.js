@@ -43,9 +43,6 @@ class  MessageString extends Message {
        const messages_string= await message_string_Model.find({_id:objectid})
         return messages_string;
     }
-
-
-    
  async   liste_messages_non_lue(chatid,user_id){
    let lu = []
   
@@ -54,7 +51,7 @@ class  MessageString extends Message {
 
  for ( const message of messages_string){
   lu = message.lu_par
-  lu.pus(user_id)
+  lu.push(user_id)
   const element= {$set:message} 
   await message_string_Model.updateOne({_id:message.id},element);
    const messages= new message_string_dto(message.id,message.chatid,message.contenu,message.est_like,message.est_epingle,message.id_expediteur,"string",message.createdAt) 

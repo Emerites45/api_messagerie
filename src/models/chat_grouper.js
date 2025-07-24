@@ -37,6 +37,10 @@ const chat_grouper_Schema = new mongoose.Schema({
       type: String,
       required:false,
      },
+     
+photo_profil: {
+  type: String,
+} 
 },
 {
     timestamps: true,

@@ -7,7 +7,7 @@ const  messagesroute =require("./src/routes/messagesroutes")
 const  utilisateurroute =require("./src/routes/utilisateurroutes") 
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const eurekaClient = require('./src/config/eureka'); 
+//const eurekaClient = require('./src/config/eureka'); 
 
 
 const  message_string_Model = require ("./src/classes/messageStringClasse")
@@ -57,7 +57,7 @@ const User = require('./src/models/Users');
 const port =  process.env.PORT || 3000
 
 //synchronisation a la base de donnee mongo
-//connectDB();
+connectDB();
 //session middleware
 global.isConnected = false;
 const corsOptions = {

@@ -20,7 +20,7 @@ const chatSchema = new mongoose.Schema({
   associer_au_dossier: {
     type: String,
     required:false,
-   },
+   },  
   
 },
 {

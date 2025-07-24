@@ -73,10 +73,11 @@ const finduserchats =  async(req,res)  => {
       const liste_chat_archiver_individuel=  await chat_individuel.liste_chat_archive(userID) 
       const liste_chat_archiver_grouper=    await chat_grouper.liste_chat_archive(userID) 
 
-         
+         const chats_total= [...liste_chat_individuel, ...liste_chat_grouper];
+         chats_total.sort((a,b)=>new Date(b.updatedAt) - new Date(a.updatedAt))
 
     const response={liste_chat_individuel,liste_chat_grouper,liste_chat_archiver_individuel,liste_chat_archiver_grouper}
-        res.status(200).json(response);
+        res.status(200).json(chats_total);
     }
     catch(error){
         console.log(error)

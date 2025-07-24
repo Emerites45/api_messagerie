@@ -2,7 +2,7 @@
 class  Chat_dto {
 
 
-    constructor(id_chat,membres,nom,description,administrateur,nb_message_epingler,createAt,type){
+    constructor(id_chat,membres,nom,description,administrateur,nb_message_epingler,type,photo_profil,createAt,updatedAt){
          this.id_chat= id_chat,
          this.nom = nom;
          this.membres= membres;
@@ -11,6 +11,8 @@ class  Chat_dto {
          this.nb_message_epingler = nb_message_epingler;
          this.createAt= createAt;
          this.type= type;
+         this.photo_profil= photo_profil;
+         this.updatedAt= updatedAt
     }
    
 }

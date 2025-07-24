@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  id_utilisateur:{ 
+  _id:{ 
    type: String,
    required: true},
   pseudo:{
@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
     type: String, 
     unique: true,    
     match: /.+\@.+\..+/ 
+},
+photo_profil: {
+  type: String,
 }
 });
 

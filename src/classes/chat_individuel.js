@@ -11,12 +11,17 @@ class Chat_Individuel extends Chat{
       super(valeur_favorite,est_archive_par,membres,[],"")
    }
 
+
+   // fonction pour cree un chat 
+
   async cree_chat(chat){
       let newchat = new chatModel(chat)
       const response =  await newchat.save()
       return response;
    }
 
+
+   // fonction pour ajouter un chat a un dossier 
    async  ajouter_au_dossier(id_dossier,chatID){
     const objectid= new ObjectId(chatID)
     
@@ -30,6 +35,18 @@ class Chat_Individuel extends Chat{
 
    }
 
+   
+   // modifier un chat 
+   async modifier_chat(chatID,chat){
+    console.log("le chat id: "+chatID)
+    const objectid= new ObjectId(chatID)
+    const element= {$set:chat} 
+   
+    const result = await chatModel.updateOne({_id:chatID},element);
+    return result
+ }
+
+// ajouter un chat parmis les favoris 
 
   async ajouter_chat_favoris(chatID, userid){
      
@@ -56,6 +73,8 @@ class Chat_Individuel extends Chat{
  }
    
 
+ // archiver un chat 
+
    async archiver_chat(chatID,userid){
 
     const objectid= new ObjectId(chatID)
@@ -80,7 +99,7 @@ class Chat_Individuel extends Chat{
  }
 
 
-
+// liste des chat 
  
  async liste_chat(userID){
     let liste_chats= []
@@ -91,7 +110,7 @@ class Chat_Individuel extends Chat{
         
         let utilisateur;
         if (element.membres[0] == userID) {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[1] });
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[1] });
             console.log("jarrive ici" + element.membres[1]);
 
             console.log("identifiant  :" + element.id);
@@ -99,7 +118,7 @@ class Chat_Individuel extends Chat{
             console.log("valeur favorite :" + element.valeur_favorite);
            
             console.log("pseudo :" + utilisateur.pseudo)
-            const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
+            const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",utilisateur.photo_profil,element.createdAt,element.updatedAt);
 
             console.log("identifiant  :" + chat.id_chat);
             console.log("valeur favorite :" + chat.valeur_favorite);
@@ -109,8 +128,8 @@ class Chat_Individuel extends Chat{
             liste_chats.push(chat);
             console.log("on a :" + liste_chats.length);
         } else {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
-            const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[0] });
+            const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",utilisateur.photo_profil,element.createdAt,element.updatedAt);
             liste_chats.push(chat);
         }
     }
@@ -118,6 +137,12 @@ class Chat_Individuel extends Chat{
 
     return liste_chats;
  }
+
+
+
+  
+ // liste des chats archiver 
+
 
  async liste_chat_archive(userID){
 
@@ -129,25 +154,15 @@ class Chat_Individuel extends Chat{
         
         let utilisateur;
         if (element.membres[0] == userID) {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[1] });
-            /*console.log("jarrive ici pour les archiver " + element.membres[1]);
-
-            console.log("identifiant  :" + element.id);
-            console.log("valeur favorite :" + element.valeur_favorite);
-          
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[1] });
            
-            console.log("pseudo :" + utilisateur.pseudo)*/
             const chat = new Chat_dto(element.id, utilisateur.pseudo,"individuel",element.createdAt);
 
-         /*   console.log("identifiant  :" + chat.id_chat);
-            console.log("valeur favorite :" + chat.valeur_favorite);
-            console.log("est archiver :" + chat.est_archive);
-            console.log("pseudo :" + chat.nom);*/
-
+      
             liste_chats.push(chat);
-            //console.log("on a :" + liste_chats.length);
+            
         } else {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[0] });
             const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }
@@ -169,7 +184,7 @@ class Chat_Individuel extends Chat{
         
         let utilisateur;
         if (element.membres[0] == userID) {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[1] });
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[1] });
             console.log("jarrive ici pour les archiver " + element.membres[1]);
 
             console.log("identifiant  :" + element.id);
@@ -185,7 +200,7 @@ class Chat_Individuel extends Chat{
             liste_chats.push(chat);
             console.log("on a :" + liste_chats.length);
         } else {
-            utilisateur = await utilisateurModel.findOne({ id_utilisateur: element.membres[0] });
+            utilisateur = await utilisateurModel.findOne({ _id: element.membres[0] });
             const chat = new Chat_dto(element.id,utilisateur.pseudo,"individuel",element.createdAt);
             liste_chats.push(chat);
         }

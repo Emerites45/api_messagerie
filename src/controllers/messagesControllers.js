@@ -3,6 +3,10 @@ const message_string =  require("../classes/messageStringClasse")
 const message_media = require("../classes/messageMediaClasse")
 const message_string_and_media =require("../classes/messageStringandMediaClasse")
 const message_link =  require("../classes/messageLinkClasse")
+const Chat_Individuel= require("../classes/chat_individuel")
+const chatModel= require("../models/chat")
+const { ObjectId } = require('mongodb');
+
 
 
 
@@ -34,9 +38,14 @@ const  createmessage = async(req,res)  => {
       
     let messages = chatFactory(chatid,contenu,media,id_expediteur,type)
     let response=""
-      
+    let chat= new Chat_Individuel();
+    const objectid= new ObjectId(chatid)
+    
+   const chat_info= await  chatModel.findOne({_id:objectid})
   
-         await  messages.envoyer_message(messages).then(() => response='Message sauvegardé avec succès !')
+         await  messages.envoyer_message(messages).then(async() =>  {
+            await chat.modifier_chat(chatid,chat_info);
+            response='Message sauvegardé avec succès !'})
          .catch(err => {
           console.error('Erreur de validation :', err.message);
           response = err.message;

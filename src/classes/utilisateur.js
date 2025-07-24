@@ -2,12 +2,12 @@
 class  Utilisateur {
 
 
-    constructor(id_utilisateur,pseudo,adresse_mail,role){
-         this.id_utilisateur = id_utilisateur;
+    constructor(_id,pseudo,adresse_mail,role,photo_profil){
+         this._id = _id;
          this.pseudo = pseudo;
          this.adresse_mail = adresse_mail;
-         this.role=role
+         this.role=role;
+         this.photo_profil= photo_profil;
     }
-   
 }
    module.exports = Utilisateur;

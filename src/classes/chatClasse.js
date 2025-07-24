@@ -8,7 +8,7 @@ class  Chat {
          this.membres = membres;
          this.supprimer_pour= supprimer_pour;
          this.associer_au_dossier = associer_au_dossier
-
+        
     }
     cree_chat(){}
     ajouter_au_dossier(){}

@@ -14,13 +14,15 @@ const router = express.Router()
  *           schema:
  *             type: object
  *             properties:
- *               id_utilisateur:
+ *               _id:
  *                 type: string
  *               pseudo:
  *                 type: string
  *               adresse_mail:
  *                 type: string
  *               role:
+ *                 type: string
+ *               photo_profil:
  *                 type: string
  *             required:
  *               - pseudo
@@ -57,13 +59,15 @@ const router = express.Router()
  *               items:
  *                 type: object
  *                 properties:
- *                   id_utilisateur:
+ *                   _id:
  *                     type: string
  *                   pseudo:
  *                     type: string
  *                   role:
  *                     type: string
  *                   adresse_mail:
+ *                     type: string
+ *                   photo_profil:
  *                     type: string
  */
 

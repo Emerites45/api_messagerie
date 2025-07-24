@@ -14,14 +14,17 @@ class Chat_Grouper extends Chat{
       nom="",
       description="",
       administrateur=[],
-      nb_message_epingler){
+      nb_message_epingler,
+      photo_profil=""){
       super(valeur_favorite,est_archive_par,membres,[],"")
       this.description=description
       this.administrateur= administrateur
       this.nom= nom
       this.nb_message_epingler = nb_message_epingler
+      this.photo_profil= photo_profil
    }
 
+   // cree un chat 
 
    async cree_chat(chat){
       let newchat = new chat_grouperModel(chat)
@@ -29,6 +32,8 @@ class Chat_Grouper extends Chat{
       const response = await  newchat.save()
       return response;
    }
+
+   // modifier un chat 
    async modifier_chat(chatID,chat){
       console.log("le chat id: "+chatID)
       const objectid= new ObjectId(chatID)
@@ -100,6 +105,9 @@ class Chat_Grouper extends Chat{
       return result
    }
 
+
+   // lister les chat 
+
    
    async liste_chat(userID){
       let liste_chats= []
@@ -114,8 +122,11 @@ class Chat_Grouper extends Chat{
                element.description,
                element.administrateur,
                element.nb_message_epingler,
+               "groupe",
+               element.photo_profil,
                element.createdAt,
-               "groupe");
+               element.updateddAt,
+               );
               liste_chats.push(chat);
               console.log("on a chat gropuer :" + liste_chats.length);
           } 
